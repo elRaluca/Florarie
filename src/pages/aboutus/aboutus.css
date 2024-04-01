@@ -1,0 +1,138 @@
+.container_about {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.BouquetInfo_left {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.BouquetInfo_left img {
+  border-radius: 10%;
+  width: 20rem;
+  margin-top: 4rem;
+  margin-left: 2rem;
+}
+
+.BouquetInfo_left::before {
+  content: "";
+  position: absolute;
+  top: 4rem;
+  left: 2rem;
+  width: 20rem;
+  height: 19.2rem;
+  background-color: var(--color-gray-300);
+  z-index: -1;
+}
+
+.BouquetInfo_right img {
+  border-radius: 10%;
+  width: 20rem;
+  margin-top: 29rem;
+  margin-left: auto;
+  margin-right: 2rem;
+}
+
+.BouquetInfo_right::before {
+  content: "";
+  position: absolute;
+  top: 42.3rem;
+  left: 58.3rem;
+  width: 20rem; /* Ajustează această valoare */
+  height: 19.2rem; /* Ajustează această valoare */
+  background-color: var(--color-gray-300);
+  z-index: -1;
+}
+
+.BouquetInfo_text_left {
+  position: relative;
+  text-align: left;
+  max-width: 300px;
+  margin-top: 10rem;
+}
+
+.BouquetInfo_text_right {
+  text-align: right;
+  max-width: 300px;
+  margin-top: -40rem;
+  margin-left: -10rem;
+}
+.BouquetInfo_text_right h1::after {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 20rem;
+  height: 4rem;
+  background-color: var(--color-gray-300);
+  z-index: -1;
+  border-radius: 15px;
+  box-shadow: 0px 40px 15px rgba(0, 0, 0, 0.1);
+}
+
+.BouquetInfo_text_right h1 {
+  font-family: "GOLDEN", sans-serif;
+  font-size: 6rem;
+  margin-top: 0;
+  margin-right: 20px;
+  text-align: left;
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  font-weight: 300;
+}
+
+.BouquetInfo_text_right p {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1rem;
+  margin-top: 0;
+  margin-right: -300px;
+  text-align: left;
+  position: absolute;
+  top: 83%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+}
+
+.BouquetInfo_text_left h1 {
+  font-family: "GOLDEN", sans-serif;
+  font-size: 6rem;
+  margin-top: 0;
+  margin-right: 20px;
+  text-align: left;
+  position: absolute;
+  top: -50%;
+  left: 100%;
+  font-weight: 300;
+}
+
+.BouquetInfo_text_left h1::after {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 20rem;
+  height: 4rem;
+  background-color: var(--color-gray-300);
+  z-index: -1;
+  border-radius: 15px;
+  box-shadow: 0px 40px 15px rgba(0, 0, 0, 0.1);
+}
+.BouquetInfo_text_left {
+  position: relative;
+}
+
+.BouquetInfo_text_left p {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1rem;
+  margin-top: 0;
+  margin-right: -550px;
+  text-align: left;
+  transform: translate(5%, 30%);
+}

@@ -1,0 +1,171 @@
+.main_header {
+  width: 100%;
+  height: calc(100vh-3rem);
+  display: grid;
+  place-items: center;
+  margin-top: 3rem;
+}
+
+.container_main_header {
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6rem;
+}
+
+.main_header_left {
+  margin-top: -11rem;
+  display: grid;
+  place-items: center;
+}
+
+.main_header_left h1 {
+  text-align: center;
+  color: var(--color-gray-700);
+  font-family: "GOLDEN", sans-serif;
+}
+
+.main_header_left p {
+  margin: -0.2rem;
+  font-size: 1.1rem;
+  color: var(--color-gray-700);
+  font-family: "GOLDEN", sans-serif;
+}
+
+.main_header_image {
+  position: relative;
+  z-index: -1;
+}
+
+.btn.lg {
+  border: 1px solid var(--color-gray-700);
+  margin: 1rem auto;
+}
+.btn.lg:hover {
+  color: var(--color-secondary);
+}
+.products {
+  margin-top: 4rem;
+}
+
+.container_top_selling {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  margin-top: 4rem;
+}
+
+.product a {
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.delivery {
+  padding: 40px 40px;
+}
+.container_delivery {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.delivery_left {
+  flex: 1;
+  max-width: 350px;
+}
+.delivery_left p {
+  margin-bottom: 20px;
+  margin-top: -10px;
+  margin-left: 60px;
+  color: var(--color-gray-700);
+}
+
+.delivery_left .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 18px;
+  text-align: center;
+  text-decoration: none;
+  background-color: var(--color-gray-300);
+  margin-left: 80px;
+  border: 0;
+}
+
+.delivery_right {
+  flex: 1;
+  max-width: 800px;
+  text-align: right; /* Modificare: Aliniaza imaginea la dreapta */
+}
+
+.delivery_right img {
+  max-width: 100%;
+  width: 100%; /* Asigură-te că imaginea nu depășește lățimea div-ului */
+  margin-top: 10px;
+  margin-left: -50px; /* Adaugă spațiu între text și imagine */
+}
+
+.reviews_details .Card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+footer {
+  background: var(--color-gray-700);
+  padding-top: 3rem;
+  font-size: 0.9rem;
+  margin-top: 7rem;
+}
+
+.footer_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap; /* Poți ajusta această valoare în funcție de preferințe */
+}
+
+.footer_container article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: -2rem;
+  margin-top: -1.5rem;
+}
+.footer_container article a {
+  color: var(--color-gray-200);
+}
+
+.footer_container article a:hover {
+  color: var(--color-secondary);
+}
+
+.footer_container article p {
+  color: var(--color-gray-200);
+}
+
+.footer_container article h4 {
+  padding: 5px 20px;
+  font-size: 18px;
+  background-color: #44392e;
+  border-radius: 10px;
+  color: var(--color-gray-200);
+}
+
+.footer_socials {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.footer_socials a {
+  color: var(--color-gray-200);
+}
+
+.logo_footer {
+  display: inline-block;
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+  position: absolute;
+  width: 15%;
+}

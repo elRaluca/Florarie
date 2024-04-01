@@ -1,0 +1,52 @@
+/* Alte stiluri existente */
+
+.container_reviews {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.reviews_details {
+  flex: 0 0 calc(30% - 20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Aliniază conținutul în centru pe axa orizontală */
+  text-align: center; /* Alinează textul în centru pe axa orizontală */
+  overflow: hidden;
+  box-shadow: none !important;
+  height: 350px;
+  margin: 150px 10px 40px;
+  border-radius: 0 !important;
+}
+.reviews_details img {
+  width: 150px; /* Ajustează dimensiunea imaginii după preferințe */
+  height: 150px;
+  border-radius: 50%; /* Face imaginea rotundă */
+  margin-top: 10px; /* Adaugă o margine superioară pentru a muta poza mai jos */
+}
+
+.reviews_details h4,
+.reviews_details small {
+  margin: 4px;
+}
+
+.reviews_details small {
+  font-size: 10px;
+  margin-top: auto; /* Mută textul în partea de jos */
+  margin-bottom: 10px;
+  color: var(--color-gray-700); /* Adaugă un spațiu între text și margin */
+}
+
+.reviews_details h4 {
+  font-family: Georgia;
+  font-weight: 100;
+  margin-top: 3px;
+  background-color: rgba(255, 255, 255, 0.6);
+  color: var(--color-gray-700);
+  padding: 10px 6px;
+  border-radius: 10px; /* Adaugă colțuri rotunjite la margine */
+}
+
+.stars {
+  color: var(--color-gray-700);
+}

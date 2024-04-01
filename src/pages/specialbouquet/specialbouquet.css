@@ -1,0 +1,572 @@
+.imageContainer {
+  position: relative;
+  display: inline-block; /* Permite containerului să se ajusteze la conținutul său */
+}
+.containerStart {
+  position: relative;
+  display: inline-block;
+}
+.whitebut {
+  width: 1rem;
+  height: 1rem;
+  left: 6.4rem;
+  top: -3rem;
+  position: absolute;
+  background-color: white;
+}
+.redbut {
+  width: 1rem;
+  height: 1rem;
+  left: 6.4rem;
+  top: -2rem;
+  position: absolute;
+  background-color: red;
+}
+.yellowbut {
+  width: 1rem;
+  height: 1rem;
+  left: 6.4rem;
+  top: -4rem;
+  position: absolute;
+  background-color: yellow;
+}
+.imLily {
+  margin-top: -3.5rem;
+  margin-left: 7.5rem;
+  height: 4rem;
+  width: 4rem;
+}
+
+.lilyImage {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding: 1rem; /* Margini pentru a crea spațiul pentru ::before */
+}
+
+.lilyImage::before {
+  content: "";
+  position: absolute;
+  background-color: rgba(44, 27, 27, 0.738);
+  height: 8rem;
+  width: 6rem;
+  margin-left: 6.4rem;
+  margin-top: -5.5rem;
+  border-radius: 5px; /* colțuri rotunde */
+  z-index: -1; /* asigură că se află deasupra conținutului */
+}
+
+.LilyP {
+  position: absolute;
+}
+
+.LilyP p {
+  position: absolute;
+  line-height: 1;
+  margin-left: 8.7rem;
+  margin-top: 0.5rem;
+}
+
+.imChrysanthemum {
+  margin-top: 5rem;
+  margin-left: 7.5rem;
+  height: 4rem;
+  width: 4rem;
+}
+
+.chysanthemumImage {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding: 1rem;
+}
+.chysanthemumImage::before {
+  content: "";
+  position: absolute;
+  background-color: rgba(44, 27, 27, 0.738);
+  height: 8rem;
+  width: 6rem;
+  margin-left: 6.5rem;
+  margin-top: 3rem;
+  border-radius: 5px; /* colțuri rotunde */
+  z-index: -1;
+}
+
+.ChrysanthemumP {
+  position: absolute;
+  margin-left: 6.7rem;
+  margin-top: 9rem;
+  font-size: 12px;
+}
+.price p {
+  position: absolute;
+  margin-left: 2rem;
+  margin-top: -0.9rem;
+  font-size: 18px;
+}
+.pinkbut {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 3.6rem;
+  margin-left: -18.5rem;
+  position: absolute;
+  background-color: rgb(202, 16, 99);
+}
+.orangebut {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  margin-top: 4.6rem;
+  margin-left: -18.5rem;
+  background-color: orange;
+}
+.bluebut {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 5.6rem;
+  margin-left: -18.5rem;
+  background-color: blue;
+}
+
+.imRose {
+  margin-top: -17rem;
+  margin-left: 20rem;
+  height: 4rem;
+  width: 4rem;
+}
+
+.roseImage {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding: 1rem;
+}
+
+.roseImage::before {
+  content: "";
+  position: absolute;
+  background-color: rgba(44, 27, 27, 0.738);
+  height: 8rem;
+  width: 6rem;
+  margin-left: 19rem;
+  margin-top: -19rem;
+  border-radius: 5px; /* colțuri rotunde */
+  z-index: -1; /* asigură că se află deasupra conținutului */
+}
+.RoseP {
+  position: absolute;
+  margin-top: -13rem;
+  margin-left: 21rem;
+  line-height: 1;
+}
+
+.priceRose {
+  margin-left: 0.5rem;
+}
+
+.whitebutRose {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  margin-top: -18.5rem;
+  margin-left: 1rem;
+  background-color: white;
+}
+.redbutRose {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  margin-top: -17.5rem;
+  margin-left: 1rem;
+  background-color: red;
+}
+
+.yellowbutRose {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  margin-top: -16.5rem;
+  margin-left: 1rem;
+  background-color: yellow;
+}
+
+.imTulpin {
+  margin-top: -8rem;
+  margin-left: 20rem;
+  height: 4rem;
+  width: 4rem;
+}
+
+.tulpinImage {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding: 1rem;
+}
+
+.tulpinImage::before {
+  content: "";
+  position: absolute;
+  background-color: rgba(44, 27, 27, 0.738);
+  height: 8rem;
+  width: 6rem;
+  margin-left: 19rem;
+  margin-top: -10rem;
+  border-radius: 5px; /* colțuri rotunde */
+  z-index: -1; /* asigură că se află deasupra conținutului */
+}
+
+.TulpinP {
+  position: absolute;
+  margin-left: 20.5rem;
+  margin-top: -4rem;
+  line-height: 1;
+}
+.priceTulpin {
+  margin-left: 0.9rem;
+}
+
+.violetebutTulpin {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  margin-top: -9.5rem;
+  margin-left: 1rem;
+  background-color: violet;
+}
+
+.redbutTulpin {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  margin-top: -8.5rem;
+  margin-left: 1rem;
+  background-color: red;
+}
+.yellowbutTulpin {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  margin-top: -7.5rem;
+  margin-left: 1rem;
+  background-color: yellow;
+}
+
+.imBox {
+  margin-top: 0.1rem;
+  margin-left: 5rem;
+  height: 4rem;
+  width: 4rem;
+}
+
+.boxImage {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding: 1rem;
+}
+
+.boxImage::before {
+  content: "";
+  position: absolute;
+  background-color: rgba(44, 27, 27, 0.738);
+  height: 8rem;
+  width: 6rem;
+  margin-left: 4rem;
+  margin-top: -2rem;
+  border-radius: 5px;
+  z-index: -1;
+}
+
+.BoxP p {
+  position: absolute;
+  margin-top: 3.5rem;
+  margin-left: -12rem;
+}
+.priceBox {
+  position: absolute;
+  margin-top: 0.9rem;
+  margin-left: 0.2rem;
+  color: aliceblue;
+}
+
+.whitebutBox {
+  position: absolute;
+  margin-top: -1.5rem;
+  margin-left: -24rem;
+  width: 1rem;
+  height: 1rem;
+  background-color: white;
+}
+
+.redbutBox {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  margin-top: -0.5rem;
+  margin-left: -24rem;
+  background-color: red;
+}
+
+.blackbutBox {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  margin-top: 0.4rem;
+  margin-left: -24rem;
+  background-color: black;
+}
+
+.imhartie {
+  margin-top: -6rem;
+  margin-left: 16rem;
+  height: 4rem;
+  width: 4rem;
+}
+
+.hartieImage {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding: 1rem;
+}
+
+.hartieImage::before {
+  content: "";
+  position: absolute;
+  background-color: rgba(44, 27, 27, 0.738);
+  height: 8rem;
+  width: 6rem;
+  margin-left: 15rem;
+  margin-top: -8rem;
+  border-radius: 5px;
+  z-index: -1;
+}
+
+.redbutHartie1 {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  margin-top: -7.5rem;
+  margin-left: -6rem;
+  background-color: red;
+}
+.blackbutHartie2 {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  margin-top: -6.6rem;
+  margin-left: -6rem;
+  background-color: black;
+}
+
+.WrappingP {
+  margin-left: 6.5rem;
+  margin-top: -0.5rem;
+}
+
+.priceWrapping {
+  position: absolute;
+  margin-top: 1.3rem;
+  margin-left: 1.8rem;
+}
+.flowersButton {
+  position: relative;
+  background-color: transparent;
+  color: white;
+  font-size: 6rem;
+  margin-left: 23rem;
+  margin-top: -8rem;
+}
+
+.backgroundButton {
+  position: relative;
+  background-color: transparent;
+  color: white;
+  font-size: 6rem;
+  margin-top: -15.5rem;
+  margin-left: 0.5rem;
+}
+
+.containerBouquet {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding: 1rem;
+}
+.containerBouquet::before {
+  content: "";
+  position: absolute;
+  background-color: var(--color-gray-400);
+  top: 2rem;
+  right: 1rem;
+  bottom: -20rem;
+  left: 1rem;
+  border-radius: 30px;
+  z-index: -1;
+  height: 70rem;
+}
+
+.bouquet {
+  font-size: 2rem;
+  margin-top: -9rem;
+  margin-right: 12rem;
+  left: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding: 1rem;
+  z-index: 1;
+}
+
+.bouquet::before {
+  content: "";
+  position: absolute;
+  background-color: var(--color-gray-200);
+  top: 3rem;
+  right: -1rem;
+  bottom: 1rem;
+  left: -1rem;
+  border-radius: 30px;
+  z-index: -1;
+}
+
+.boardBouquete {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding: 1rem;
+  width: 20rem;
+  height: 20rem;
+}
+
+.boardBouquete::before {
+  content: "";
+  position: absolute;
+  background-color: var(--color-gray-200);
+  top: 0;
+  right: 7rem;
+  bottom: -20rem;
+  left: -3rem;
+  border-radius: 30px;
+  width: 25rem;
+  height: 20rem;
+  z-index: -1;
+}
+.boardFlower {
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding: 1rem;
+  width: 11.5rem;
+  height: 7rem;
+  top: -19rem;
+  left: 2.8rem;
+}
+
+.flowerSize {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-column: 1 / 5;
+}
+
+.flowerSize img {
+  width: 50px;
+  height: 50px;
+  margin: -8px;
+}
+
+.PriceSpecial {
+  color: var(--color-gray-700);
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin-left: -1.5rem;
+}
+
+.ssImage {
+  width: 20rem;
+  height: 20rem;
+}
+
+.BuyNowSpecail {
+  margin-top: 0.1rem;
+  margin-left: -19rem;
+  background-color: var(--color-gray-200);
+  border-radius: 2rem;
+  width: 10rem;
+  font-size: 2rem;
+}
+
+.BuyNowSpecail:hover {
+  background-color: var(--color-gray-300);
+}
+
+.hartieImage p {
+  margin-left: -11rem;
+  margin-top: -2rem;
+}
+
+.videoContainer {
+  position: absolute;
+  margin-top: 35rem;
+}
+
+.videoContainer h1 {
+  margin-left: 2rem;
+  margin-top: 1rem;
+  font-size: 3rem;
+  font-weight: 300;
+}
+.videoContainer::before {
+  background-color: var(--color-gray-200);
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 57rem;
+  height: 2rem;
+  margin-left: 1rem;
+  margin-top: 3rem;
+  border-radius: 30px;
+}
+
+.videoContainer h2 {
+  margin-left: 2rem;
+  margin-top: 1rem;
+  font-weight: 300;
+}
+
+.videoContainer video {
+  margin-left: 15rem;
+  margin-top: -1rem;
+  width: 800;
+  height: 400;
+}
+
+.helpBouquet,
+.arrowBouquet {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: red;
+  font-size: 1.8rem;
+  margin-top: -2rem;
+}
+
+.helpBouquet {
+  margin-left: 1.8rem;
+  bottom: 2rem;
+}
+
+.arrowBouquet {
+  margin-left: 2.9rem;
+  bottom: 0.9rem;
+}

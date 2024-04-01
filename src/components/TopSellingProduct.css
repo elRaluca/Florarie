@@ -1,0 +1,68 @@
+.Card h4 {
+  margin-bottom: 0.5rem;
+  flex: 2;
+  font-size: 20px;
+  font-family: "GOLDEN", sans-serif;
+}
+
+.Card p {
+  margin-bottom: 0.5rem;
+}
+.Card small {
+  display: block;
+}
+
+.Card {
+  margin: 0 auto 20px;
+  width: 70%;
+  height: 200px;
+}
+
+/* TopSellingProduct.css sau alt fișier CSS */
+
+.producttopselling {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.producttopselling img {
+  width: 40%;
+  height: 100%;
+  object-fit: cover;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  z-index: 1;
+}
+
+/* TopSellingProduct.css sau alt fișier CSS */
+
+.producttopselling h4 {
+  position: absolute;
+  margin-top: -6rem;
+  left: 11rem;
+  color: var(--color-gray-700);
+  font-weight: 100;
+}
+
+/* TopSellingProduct.css sau alt fișier CSS */
+
+.producttopselling small {
+  color: var(--color-gray-700);
+  text-transform: uppercase;
+  position: absolute;
+  left: 11rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.producttopselling p {
+  font-family: GOLDEN;
+  position: absolute;
+  margin-top: 10rem;
+  right: 1rem;
+  color: var(--color-gray-700);
+  font-size: 2rem;
+}

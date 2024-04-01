@@ -1,0 +1,102 @@
+.have_acc_singup {
+  margin-top: 20px;
+  flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between 2px;
+  margin-bottom: 1px;
+  margin-top: -10px;
+}
+
+.have_acc_singup button {
+  background: transparent;
+  margin-top: 6px;
+  color: var(--color-gray-100);
+}
+
+.have_acc_singup button:hover {
+  color: var(--color-gray-300);
+}
+
+.have_acc_singup p {
+  color: var(--color-gray-100);
+}
+
+.singup_right .have_acc_singup {
+  text-align: center;
+  justify-content: center;
+}
+
+.recover_account {
+  margin-top: 20px;
+  flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between 2px;
+  margin-bottom: 1px;
+  margin-top: 1rem;
+}
+
+.recover_account button {
+  background: transparent;
+  margin-top: 6px;
+  color: var(--color-gray-100);
+}
+
+.recover_account button:hover {
+  color: var(--color-gray-300);
+}
+
+.recover_account p {
+  color: var(--color-gray-100);
+}
+
+.singup_right .recover_account {
+  text-align: center;
+  justify-content: center;
+}
+
+.problems_contactus {
+  flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between 2px;
+  margin-bottom: 1px;
+  margin-top: 8rem;
+}
+
+.problems_contactus button {
+  background: transparent;
+  margin-top: 8px;
+  color: var(--color-gray-100);
+}
+
+.problems_contactus button:hover {
+  color: var(--color-gray-300);
+}
+
+.problems_contactus p {
+  color: var(--color-gray-100);
+}
+
+.singup_right .problems_contactus {
+  text-align: center;
+  justify-content: center;
+}
+
+.contactBt {
+  text-align: center;
+}
+
+.contactBt button {
+  font-size: 1.4rem;
+  font-weight: 700;
+  width: 40%;
+  background-color: var(--color-gray-400);
+  color: var(--color-gray-100);
+  border-radius: 20px;
+}
+
+.contactBt button:hover {
+  background-color: var(--color-gray-300);
+}

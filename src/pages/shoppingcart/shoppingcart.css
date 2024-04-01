@@ -1,0 +1,220 @@
+/* shoppingcart.css */
+
+.shoppingcart {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding: 1rem; /* Margini pentru a crea spațiul pentru ::before */
+}
+
+.shoppingcart::before {
+  content: "";
+  position: absolute;
+  background-color: var(--color-gray-400);
+  top: 0;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  border-radius: 30px; /* colțuri rotunde */
+  z-index: -1; /* asigură că se află deasupra conținutului */
+}
+
+.container_shoppingcart {
+  width: 50%;
+  margin-top: 5rem;
+}
+
+.container_shoppingcart h2 {
+  margin-left: 8rem;
+}
+
+.delivery_details {
+  width: 40%;
+  margin-top: 8rem;
+}
+
+.cart_item.Card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  box-shadow: none;
+  height: 120px;
+  width: 90%;
+}
+
+.cart_item_image {
+  width: 90px;
+  height: auto;
+  margin-left: 1rem;
+  margin-right: 10px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.details .removeBtn .btn {
+  color: var(--color-gray-100);
+  background-color: var(--color-gray-500);
+  margin-top: 0.1rem;
+  margin-left: 20rem;
+}
+
+.quantity_container {
+  display: flex;
+  align-items: center;
+  margin-left: 21.5rem;
+  margin-top: 3rem;
+}
+
+.minusBtn {
+  color: var(--color-gray-100);
+  background-color: var(--color-gray-500);
+  border-radius: 10px;
+  width: 15px;
+  /* Elimină marginea sau ajustează la 0 pentru niciuna */
+}
+
+.plusBtn {
+  color: var(--color-gray-100);
+  background-color: var(--color-gray-500);
+  border-radius: 10px;
+  width: 15px;
+  margin-left: 0.5rem; /* Elimină marginea sau ajustează la 0 pentru niciuna */
+}
+
+.quantity-container p {
+  color: var(--color-gray-700);
+  font-size: 1rem;
+  margin-left: 0.5rem; /* Ajustează la o valoare care să poziționeze textul în modul dorit */
+}
+
+.details h1 {
+  font-size: 3.5rem;
+  margin-top: 2rem;
+  margin-left: 5rem;
+  position: absolute;
+}
+
+.totalPrice {
+  font-size: 2rem;
+  text-align: center;
+  color: var(--color-gray-100);
+}
+
+.container_shoppingcart h2 {
+  position: absolute;
+  margin-top: -4rem;
+  margin-left: 13rem;
+}
+
+.placeOrder {
+  color: var(--color-gray-100);
+  font-weight: 800;
+  margin-top: 2rem;
+  margin-left: 9rem;
+  height: 2rem;
+  width: 9rem;
+  border-radius: 2rem;
+  background-color: var(--color-gray-500);
+}
+.placeOrder:hover {
+  background-color: var(--color-gray-300);
+}
+.delivery_details h2 {
+  position: absolute;
+  margin-top: -7rem;
+  margin-left: 5rem;
+}
+
+.email_label {
+  display: block;
+  color: var(--color-gray-700);
+  margin-top: -3rem;
+}
+
+.email_input,
+.name_input {
+  background-color: var(--color-gray-300);
+  width: 20rem;
+  height: 2rem;
+  margin-left: 0.7rem;
+  margin-top: 1rem;
+}
+.phone_input {
+  background-color: var(--color-gray-300);
+  width: 20rem;
+  height: 2rem;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+}
+.city_input {
+  background-color: var(--color-gray-300);
+  width: 20rem;
+  height: 2rem;
+
+  margin-left: 1.6rem;
+  margin-top: 1rem;
+}
+
+.county_input {
+  background-color: var(--color-gray-300);
+  width: 20rem;
+  height: 2rem;
+
+  margin-left: 0.2rem;
+  margin-top: 1rem;
+}
+.street_input {
+  background-color: var(--color-gray-300);
+  width: 20rem;
+  height: 2rem;
+  margin-left: 0.8rem;
+  margin-top: 1rem;
+}
+.phone_label,
+.name_label,
+.city_label,
+.county_label,
+.street_label {
+  display: block;
+  color: var(--color-gray-700);
+}
+
+.payment-method-selector {
+  display: flex;
+  margin-top: 1rem;
+}
+.payment-method-selector p,
+.delivery_method_selector p {
+  margin-top: 0.3rem;
+}
+
+.payment-option,
+.delivery_option {
+  cursor: pointer;
+  padding: 0.3rem;
+  margin-left: 0.2rem;
+  margin-right: 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  color: var(--color-gray-700);
+}
+
+.payment-option:hover,
+.delivery_option:hover {
+  background-color: var(--color-gray-300);
+}
+
+.payment-option.active,
+.delivery_option.active {
+  background-color: var(--color-gray-300);
+  color: var(--color-gray-700);
+}
+
+.delivery_method_selector {
+  display: flex;
+  margin-top: 1rem;
+}

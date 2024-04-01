@@ -1,0 +1,183 @@
+.container_singup {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.singup_left {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Așază elementele pe axa verticală în centru */
+  justify-content: center; /* Așază elementele pe axa orizontală în centru */
+  text-align: center;
+
+  /* Ajustează dimensiunea după necesități */
+}
+.singup_left img {
+  position: relative;
+  margin-top: -20rem;
+  width: 15rem;
+}
+.link_left {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-left: -5rem;
+}
+
+.link_left .btn.lg {
+  border: none;
+  background-color: var(--color-gray-400);
+  color: var(--color-gray-100);
+  padding: 0.4rem 1.5rem;
+  min-width: 200px;
+  text-align: center;
+  --color-gray-100-space: nowrap;
+  margin-top: 0.1rem;
+}
+
+.link_left .btn.lg:hover {
+  background-color: var(--color-gray-300);
+}
+
+.singup_right_content {
+  position: relative;
+  margin-top: -10rem;
+  width: 60%;
+  /* Ajustează dimensiunea după necesități */
+  background-color: var(--color-gray-600); /* Culoarea fundalului */
+  border-radius: 20px; /* Rotunjirea colțurilor */
+  padding: 20px;
+  margin-bottom: 0;
+}
+.singup_right {
+  position: relative;
+  margin-top: 4rem;
+}
+
+.singup_right h2 {
+  font-size: 1.5rem;
+  margin-left: 2rem;
+  font-weight: 200;
+  color: var(--color-gray-100);
+  text-align: left;
+  margin-top: -3rem;
+  position: absolute;
+  padding-bottom: 10px;
+  z-index: 1; /* Adăugați o margine jos pentru a face loc liniei */
+}
+
+.singup_right::after {
+  content: "";
+  display: block;
+  width: 25%; /* Faceți linia să acopere întreaga lățime a containerului h2 */
+  height: 14px; /* Ajustați grosimea liniei */
+  background-color: var(--color-gray-300); /* Culoarea liniei */
+  position: absolute;
+  top: -2rem; /* Poziționați linia în partea de jos a containerului h2 */
+  left: 20px;
+  border-radius: 6px; /* Rotunjirea colțurilor */
+  box-shadow: 0px 10px 3px rgba(0, 0, 0, 0.1); /* Umbra liniei */
+}
+
+.singup_with {
+  text-align: center;
+}
+
+.singup_with button {
+  position: relative;
+  border-radius: 2rem;
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+  padding: 0.6rem;
+  min-width: 300px;
+  margin: 0.5rem; /* Adaugă o distanță între butoane */
+  --color-gray-100-space: nowrap;
+}
+.singup h3 {
+  color: var(--color-gray-100);
+  text-align: center;
+}
+.singUp_form {
+  text-align: center;
+}
+
+.singUp_label {
+  display: block;
+  margin-bottom: -1rem;
+  position: relative;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.singUp_input {
+  width: 91%;
+  padding: 20px;
+  border-radius: 0.4rem;
+  background-color: var(--color-gray-400);
+}
+
+span {
+  position: absolute;
+  top: 50%;
+  left: 3rem;
+  transform: translateY(-50%);
+  color: var(--color-gray-100); /* Culoarea textului de ajutor */
+  pointer-events: none; /* Asigură-te că evenimentele pe textul de ajutor sunt ignorate */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.create {
+  text-align: center;
+  margin-top: 8px; /* Adaugă un spațiu între butoane */
+}
+
+.create button[type="submit"] {
+  background-color: var(--color-gray-400);
+  color: var(--color-gray-100);
+  padding: 10px 15px;
+  border-radius: 5px;
+  width: 60%;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.create button:hover {
+  background-color: var(--color-gray-300);
+}
+.login {
+  margin-top: 20px;
+  flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between 2px;
+  margin-bottom: 1px;
+  margin-top: 0.3rem;
+}
+.login button {
+  background: transparent;
+  margin-top: 6px;
+}
+
+.login p,
+.login button {
+  color: var(--color-gray-100);
+}
+
+.login button:hover {
+  color: var(--color-gray-300);
+}
+
+.singup_right .login {
+  text-align: center;
+  justify-content: center;
+}
+
+.singUp_input.error {
+  border: 1px solid red;
+}
+.error_message {
+  color: --color-gray-700;
+  margin-top: 20px;
+  font-size: 12px;
+}

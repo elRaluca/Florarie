@@ -1,0 +1,42 @@
+.section_head {
+  text-align: center;
+  position: relative;
+  z-index: -1;
+}
+
+.section_head h2 {
+  font-family: "GOLDEN", sans-serif;
+  color: var(--color-gray-300);
+  font-size: 4rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.section_head span {
+  position: absolute;
+  z-index: 1;
+  font-family: "GOLDEN", sans-serif;
+  font-size: 1.5rem;
+  color: var(--color-gray-700);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.section_head::after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  width: 100vw; /* 100% din lățimea vizibilă a ecranului */
+  height: 2px;
+  background-color: var(--color-gray-300);
+  transform: translateX(-50%);
+  z-index: 1;
+}

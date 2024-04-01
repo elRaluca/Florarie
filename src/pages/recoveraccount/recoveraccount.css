@@ -1,0 +1,93 @@
+.container_recover {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.recover_right {
+  width: 40%;
+  margin-right: -7rem;
+}
+
+.recover_left {
+  width: 60%;
+  margin-left: 2rem;
+  /* Spațiu între imagine și conținutul din stânga */
+}
+
+.recover_right h2 {
+  font-family: "GOLDEN";
+  margin-left: -11rem;
+  margin-top: 3rem;
+  font-weight: lighter;
+  font-size: 2.5rem;
+  color: var(--color-gray-400);
+}
+
+.recover_input {
+  margin: auto;
+  width: 50%;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 2rem;
+  background-color: var(--color-gray-400);
+}
+
+.recover_label {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.sendBt {
+  margin-top: 0.5rem;
+}
+
+.sendBt button {
+  padding: 10px;
+  background-color: var(--color-gray-400);
+  color: var(--color-gray-700);
+  border: none;
+  cursor: pointer;
+  border-radius: 2rem;
+}
+
+.sendBt button:hover {
+  background-color: var(--color-gray-300);
+}
+
+.ask span {
+  margin-left: -1rem;
+  margin-top: -6.5rem;
+  color: var(--color-gray-700);
+  font-size: 2rem;
+}
+
+.password_fields {
+  display: flex;
+  flex-direction: column;
+}
+span.code_label {
+  position: absolute;
+  left: 1rem;
+  color: var(--color-gray-700);
+}
+
+.error_message {
+  color: var(--color-gray-700);
+}
+.success_message p {
+  color: var(--color-gray-700);
+  font-size: 3rem;
+  text-align: center;
+  margin-top: -2rem;
+  margin-left: -7rem;
+}
+
+.success_message .btn {
+  position: absolute;
+  margin-left: 19rem;
+  margin-top: 3rem;
+  background-color: var(--color-gray-300);
+  border: none;
+}
