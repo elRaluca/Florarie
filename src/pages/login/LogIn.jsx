@@ -6,12 +6,16 @@ import Footer from "../../components/Footer";
 import "../singup/singup.css";
 import "./login.css";
 import { Users } from "../../data.js";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LogIn = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const [emailNotFoundError, setEmailNotFoundError] = useState(false);
   const [incorrectPasswordError, setIncorrectPasswordError] = useState(false);
@@ -22,27 +26,35 @@ const LogIn = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setEmailNotFoundError(false);
     setIncorrectPasswordError(false);
 
-    // Verifică dacă adresa de email există
-    const existingEmail = Users.find((user) => user.email === formData.email);
-    if (!existingEmail) {
-      setEmailNotFoundError(true);
-      return;
-    }
+    try {
+      console.log("Submitting form", formData);
+      const response = await axios.post(
+        "http://localhost:8060/auth/singin",
+        formData
+      );
+      console.log("Response data:", response.data);
 
-    // Verifică dacă parola este corectă
-    const correctPassword = existingEmail.password; // Aici trebuie să ai o metodă mai sigură pentru verificarea parolei
-    if (formData.password !== correctPassword) {
-      setIncorrectPasswordError(true);
-      return;
+      const { token, email } = response.data;
+      // Stochează tokenul de autentificare în mod securizat, de exemplu în localStorage
+      localStorage.setItem("userToken", token);
+      localStorage.setItem("userEmail", email);
+      console.log("Successfully logged in!", response.data);
+      // Redirecționează utilizatorul către pagina de home după autentificare
+      navigate("/home");
+    } catch (error) {
+      console.error("Login Error:", error.response || error);
+      // Gestionează erorile specifice bazate pe codul de stare al răspunsului
+      if (error.response && error.response.status === 404) {
+        setEmailNotFoundError(true);
+      } else if (error.response && error.response.status === 401) {
+        setIncorrectPasswordError(true);
+      }
     }
-
-    // Aici poți adăuga logica pentru redirecționarea către pagina principală sau altă acțiune după autentificare
-    console.log("Successfully logged in!");
   };
 
   return (

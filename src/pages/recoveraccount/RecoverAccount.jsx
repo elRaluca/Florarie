@@ -3,6 +3,8 @@ import Image from "../../images/logo.png";
 import { Users } from "../../data.js";
 import { Link } from "react-router-dom";
 import "./recoveraccount.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RecoverAccount = () => {
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
@@ -32,86 +34,103 @@ const RecoverAccount = () => {
   const [showPasswordSection, setShowPasswordSection] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [isRetryingPassword, setIsRetryingPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
 
-  const generateVerificationCode = () => {
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
-    return code;
-  };
-
-  const handleEmailSubmit = (e) => {
+  const navigate = useNavigate();
+  const handleEmailSubmit = async (e) => {
     e.preventDefault();
+    setSendButtonClicked(true); // Marcăm că butonul de send a fost apăsat
+
     const email = formData.email.trim();
-    const emailExists = !!Users.find((user) => user.email === email);
-
-    setFormData({
-      ...formData,
+    setFormData((prevState) => ({
+      ...prevState,
       submittedEmail: true,
-      submittedCode: false,
       isEmailEmpty: !email,
-      emailExists: emailExists,
-    });
+    }));
 
-    if (emailExists) {
-      setSendButtonClicked(true);
-      setEmailSubmittedAndValid(true);
-      const generatedCode = generateVerificationCode();
-      setVerificationCode(generatedCode);
-      console.log("Generated Verification Code:", generatedCode);
-    } else {
-      setSendButtonClicked(false);
+    if (!email) {
       setEmailSubmittedAndValid(false);
-    }
-  };
-
-  const handleCodeSubmit = (e) => {
-    e.preventDefault();
-
-    if (formData.code === verificationCode) {
-      console.log("Verification successful. Continue with account recovery.");
-      setIsVerificationCodeCorrect(true);
-      setIsCodeVerified(true);
-
-      setShowPasswordSection(true);
-      setShowCodeSection(false);
-    } else {
-      console.error("Incorrect verification code. Please try again.");
-      setIsVerificationCodeCorrect(false);
+      return;
     }
 
-    setIsCodeEntered(true);
-    setIsRetryingPassword(false);
-  };
-
-  const handlePasswordSubmit = (e) => {
-    e.preventDefault();
-
-    const isPasswordValid =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(formData.password);
-
-    if (formData.password === formData.confirmPassword && isPasswordValid) {
-      console.log(
-        "Passwords match and meet the criteria. Continue with account recovery."
+    try {
+      const response = await axios.post(
+        "http://localhost:8060/auth/request-reset-password",
+        { email }
       );
-      setFormData({
-        ...formData,
-        submittedPassword: true,
-        passwordChangeSuccess: true,
-      });
-    } else {
-      // Display error message only if passwords are not matching
-      if (formData.password !== formData.confirmPassword) {
-        console.error("Passwords do not match. Please try again.");
-        setPasswordsMatch(false);
-        setIsRetryingPassword(true);
+      if (response.status >= 200 && response.status < 300) {
+        // Presupunem că serverul trimite un răspuns corect, inclusiv un cod de resetare, dacă necesar
+        setVerificationCode(response.data.generatedCode); // doar dacă este necesar
+        setEmailSubmittedAndValid(true);
+        setShowCodeSection(true); // Activăm secțiunea de introducere a codului
+      } else {
+        throw new Error("Unexpected response status: " + response.status);
       }
-      // Display error message for invalid password format
-      if (!isPasswordValid) {
-        console.error(
-          "Password must have at least 8 characters, one uppercase letter, one lowercase letter, and one number."
+    } catch (error) {
+      console.error(
+        "Failed to process the email:",
+        error.response ? error.response.data : error.message
+      );
+      setEmailSubmittedAndValid(false);
+      setFormData((prevState) => ({
+        ...prevState,
+        emailExists: false,
+      }));
+    }
+  };
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      console.error("Passwords do not match. Please try again.");
+      setPasswordsMatch(false);
+      setErrorMessage("Passwords do not match.");
+      return;
+    }
+
+    if (!passwordRegex.test(formData.password)) {
+      console.error(
+        "Password must have at least 8 characters, one uppercase letter, one lowercase letter, and one number."
+      );
+      setIsRetryingPassword(true);
+      setErrorMessage("Password must meet the required criteria.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8060/auth/set-password",
+        {
+          email: formData.email,
+          resetCode: formData.code,
+          newPassword: formData.password,
+          confirmPassword: formData.confirmPassword,
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Password changed successfully.");
+        setFormData({ ...initialFormData, passwordChangeSuccess: true });
+        navigate("/login");
+        setErrorMessage(""); // Clear any error messages
+      } else {
+        throw new Error(
+          "Failed to reset password. Server responded with status: " +
+            response.status
         );
-        setPasswordsMatch(false);
-        setIsRetryingPassword(true);
       }
+    } catch (error) {
+      console.error(
+        "Error during password reset:",
+        error.response ? error.response.data : error.message
+      );
+      setIsRetryingPassword(true);
+      setErrorMessage(
+        error.response
+          ? error.response.data
+          : "Failed to reset password. Please check your verification code and try again."
+      );
     }
   };
 
@@ -149,7 +168,6 @@ const RecoverAccount = () => {
               <span>Forgot your account password?</span>
             </div>
           )}
-
           {(!emailSubmittedAndValid ||
             !sendButtonClicked ||
             formData.submittedCode) && (
@@ -190,16 +208,6 @@ const RecoverAccount = () => {
                 />
               </label>
 
-              {((formData.submittedEmail && !formData.emailExists) ||
-                (formData.submittedEmail &&
-                  formData.emailExists &&
-                  formData.isEmailEmpty)) && (
-                <div className="error_message">
-                  {formData.isEmailEmpty
-                    ? "Please enter your email address."
-                    : "Account not found. Please check the entered email address."}
-                </div>
-              )}
               <div className="sendBt">
                 <button type="submit" className="sendBt">
                   SEND
@@ -207,113 +215,92 @@ const RecoverAccount = () => {
               </div>
             </form>
           )}
-
-          {emailSubmittedAndValid && sendButtonClicked && showCodeSection && (
-            <form onSubmit={handleCodeSubmit}>
-              <label className="recover_label">
-                {formData.code.length === 0 && (
-                  <span>Enter the code received by email</span>
-                )}
-
-                <input
-                  className={`recover_input ${
-                    isCodeEntered && !isVerificationCodeCorrect ? "error" : ""
-                  }`}
-                  type="text"
-                  value={formData.code}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      code: e.target.value,
-                    })
-                  }
-                />
-              </label>
-              {isCodeEntered && !isVerificationCodeCorrect && (
-                <div className="error_message">
-                  <p>Incorrect verification code. Please try again.</p>
-                </div>
-              )}
-              <div className="sendBt">
-                <button type="submit" className="sendBt">
-                  SEND
-                </button>
-              </div>
-            </form>
-          )}
-
-          {isCodeVerified && showPasswordSection && (
-            <div>
-              {formData.passwordChangeSuccess ? (
-                <div className="success_message">
-                  <p>Password changed successfully!</p>
-                  <Link to="/login" className="btn lg">
-                    Log In
-                  </Link>
-                </div>
-              ) : (
-                <form className="recover_form" onSubmit={handlePasswordSubmit}>
-                  <div className="password_fields">
-                    <label className="recover_label">
-                      {formData.password.length === 0 && (
-                        <span>New password</span>
-                      )}
-
-                      <input
-                        className={`recover_input ${
-                          !passwordsMatch && isRetryingPassword ? "error" : ""
-                        }`}
-                        type="password"
-                        value={formData.password}
-                        onChange={handlePasswordChange}
-                      />
-                    </label>
-                    {isRetryingPassword && (
-                      <div className="error_message">
-                        Password must have at least 8 characters, one uppercase
-                        letter, one lowercase letter, and one number.
-                      </div>
-                    )}
-
-                    <label className="recover_label">
-                      {formData.confirmPassword.length === 0 && (
-                        <span>Confirm password</span>
-                      )}
-
-                      <input
-                        className={`recover_input ${
-                          !passwordsMatch ? "error" : ""
-                        }`}
-                        type="password"
-                        value={formData.confirmPassword}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            confirmPassword: e.target.value,
-                          })
-                        }
-                        onInput={handleConfirmPasswordChange}
-                      />
-                    </label>
-                    {!passwordsMatch && (
-                      <div className="error_message">
-                        Passwords do not match. Please try again.
-                      </div>
-                    )}
-
-                    <div className="sendBt">
-                      <button type="submit" className="sendBt">
-                        SEND
-                      </button>
+          {emailSubmittedAndValid && sendButtonClicked && (
+            <form onSubmit={handlePasswordSubmit}>
+              <div className="recover_fields">
+                <label className="recover_label">
+                  <input
+                    className={`recover_input ${
+                      formData.isEmailEmpty ? "error" : ""
+                    }`}
+                    type="email"
+                    placeholder="Enter your email"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                  />
+                </label>
+                <label className="recover_label">
+                  <input
+                    className="recover_input"
+                    type="text"
+                    placeholder="Verification Code"
+                    value={formData.code}
+                    onChange={(e) =>
+                      setFormData({ ...formData, code: e.target.value })
+                    }
+                  />
+                  {isCodeEntered && !isVerificationCodeCorrect && (
+                    <div className="error_message">
+                      The verification code is incorrect.
                     </div>
+                  )}
+                </label>
+                <label className="recover_label">
+                  <input
+                    className={`recover_input ${
+                      !passwordsMatch && isRetryingPassword ? "error" : ""
+                    }`}
+                    type="password"
+                    placeholder="New Password"
+                    value={formData.password}
+                    onChange={handlePasswordChange}
+                  />
+                </label>
+                <label className="recover_label">
+                  <input
+                    className={`recover_input ${
+                      !passwordsMatch ? "error" : ""
+                    }`}
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={formData.confirmPassword}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        confirmPassword: e.target.value,
+                      })
+                    }
+                  />
+                </label>
+                {isCodeEntered && !isVerificationCodeCorrect && (
+                  <div className="error_message">
+                    Incorrect verification code. Please try again.
                   </div>
-                </form>
-              )}
-            </div>
+                )}
+                {!passwordsMatch && (
+                  <div className="error_message">
+                    Passwords do not match. Please try again.
+                  </div>
+                )}
+                <div className="sendBt">
+                  <button type="submit" className="sendBt">
+                    Reset Password
+                  </button>
+                </div>
+              </div>
+            </form>
           )}
         </div>
         <div className="recover_right">
           <h2>Blossom Boutique</h2>
+        </div>
+        <div className="container_recover">
+          {errorMessage && <div className="error_message">{errorMessage}</div>}
+          {emailErrorMessage && (
+            <div className="error_message">{emailErrorMessage}</div>
+          )}
         </div>
       </div>
     </section>

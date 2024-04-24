@@ -1,6 +1,6 @@
 .imageContainer {
   position: relative;
-  display: inline-block; /* Permite containerului să se ajusteze la conținutul său */
+  display: inline-block;
 }
 .containerStart {
   position: relative;
@@ -42,7 +42,7 @@
   justify-content: space-between;
   align-items: flex-start;
   position: relative;
-  padding: 1rem; /* Margini pentru a crea spațiul pentru ::before */
+  padding: 1rem;
 }
 
 .lilyImage::before {
@@ -53,8 +53,8 @@
   width: 6rem;
   margin-left: 6.4rem;
   margin-top: -5.5rem;
-  border-radius: 5px; /* colțuri rotunde */
-  z-index: -1; /* asigură că se află deasupra conținutului */
+  border-radius: 5px;
+  z-index: -1;
 }
 
 .LilyP {
@@ -153,8 +153,8 @@
   width: 6rem;
   margin-left: 19rem;
   margin-top: -19rem;
-  border-radius: 5px; /* colțuri rotunde */
-  z-index: -1; /* asigură că se află deasupra conținutului */
+  border-radius: 5px;
+  z-index: -1;
 }
 .RoseP {
   position: absolute;
@@ -477,6 +477,11 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-column: 1 / 5;
+}
+
+.test {
+  border: 3px solid black;
+  position: absolute;
 }
 
 .flowerSize img {

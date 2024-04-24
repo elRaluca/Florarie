@@ -100,3 +100,9 @@
 .contactBt button:hover {
   background-color: var(--color-gray-300);
 }
+
+.singOut {
+  color: black;
+  font-size: 3rem;
+  margin-top: -5rem;
+}

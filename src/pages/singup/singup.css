@@ -181,3 +181,66 @@ span {
   margin-top: 20px;
   font-size: 12px;
 }
+
+.messageVerify {
+  position: absolute;
+  color: black;
+  font-size: 2rem;
+  margin-top: -5rem;
+  margin-left: 6rem;
+  text-indent: 6rem;
+}
+
+.OtpLabel input {
+  margin-top: 7rem;
+  margin-left: 15rem;
+  height: 2rem;
+  width: 15rem;
+  border-radius: 10px;
+}
+
+.OtpVerifica {
+  background-color: var(--color-gray-400);
+  height: 2rem;
+  width: 5rem;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  margin-left: 16rem;
+}
+
+.OtpVerifica:hover {
+  background-color: var(--color-gray-300);
+}
+
+.RetrimiteCod {
+  background-color: var(--color-gray-400);
+  height: 2rem;
+  width: 5.6rem;
+  border-radius: 1rem;
+  margin-top: -2rem;
+  margin-left: 22rem;
+  font-size: 1.2rem;
+}
+
+.RetrimiteCod:hover {
+  background-color: var(--color-gray-300);
+}
+
+.ErrorMessage {
+  font-size: 1.5rem;
+  color: red;
+  margin-top: 1rem;
+  margin-left: 16rem;
+}
+
+.RightSideVerify {
+  font-size: 3rem;
+  position: absolute;
+  top: 0;
+  font-family: "GOLDEN", sans-serif;
+  color: var(--color-gray-300);
+  margin-top: 15rem;
+  margin-left: 49rem;
+  text-indent: 0.5rem;
+}

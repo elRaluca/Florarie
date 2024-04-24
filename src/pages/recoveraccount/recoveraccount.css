@@ -26,8 +26,37 @@
 }
 
 .recover_input {
+  width: 40%;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 2rem;
+  background-color: var(--color-gray-400);
+}
+
+.recover_label {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.recover_input_email {
   margin: auto;
-  width: 50%;
+  width: 40%;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 2rem;
+  background-color: var(--color-gray-400);
+}
+.recover_input_code {
+  margin: auto;
+  width: 40%;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 2rem;
+  background-color: var(--color-gray-400);
+}
+.recover_input_code {
+  margin: auto;
+  width: 40%;
   padding: 8px;
   box-sizing: border-box;
   border-radius: 2rem;
@@ -37,6 +66,13 @@
 .recover_label {
   position: relative;
   margin-bottom: 10px;
+}
+.recover_fields {
+  margin-left: 3.9rem;
+}
+
+.sendBtResetPassword {
+  margin-top: 10rem;
 }
 
 .sendBt {
@@ -63,10 +99,6 @@
   font-size: 2rem;
 }
 
-.password_fields {
-  display: flex;
-  flex-direction: column;
-}
 span.code_label {
   position: absolute;
   left: 1rem;
@@ -74,7 +106,8 @@ span.code_label {
 }
 
 .error_message {
-  color: var(--color-gray-700);
+  color: red;
+  font-size: 20px;
 }
 .success_message p {
   color: var(--color-gray-700);

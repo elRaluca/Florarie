@@ -29,8 +29,21 @@ nav {
 .nav_links li:last-child a {
   border: 0 solid --color-gray-700;
   padding: 0.2rem 1rem;
-
   border-radius: 0rem;
+}
+
+.singOutBt {
+  background-color: transparent;
+  transition: var(--transition);
+  color: var(--color-gray-700);
+  display: flex;
+  gap: 3.5rem;
+  align-items: center;
+  font-size: 15.2px;
+}
+
+.singOutBt:hover {
+  color: var(--color-secondary);
 }
 
 .nav_links {
@@ -41,7 +54,6 @@ nav {
 }
 .nav_links a {
   transition: var(--transition);
-
   color: var(--color-gray-700);
 }
 
@@ -136,4 +148,9 @@ nav {
   color: black;
   font-size: 1.5rem;
   margin-left: 3rem;
+}
+
+.testare {
+  font-size: 2rem;
+  color: black;
 }

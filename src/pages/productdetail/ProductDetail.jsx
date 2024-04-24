@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import Logo from "../../images/logo.png";
 import "./productdetail.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ProductDetail = ({ products, cart, setCart }) => {
   const { productId } = useParams();

@@ -73,7 +73,7 @@ const LeftSide = () => {
         isDraggingRose: !!monitor.isDragging(),
       }),
     }),
-    [rose]
+    [rose] //dependency array
   );
 
   const [{ isDraggingTulpin }, dragTulpin] = useDrag(
@@ -177,6 +177,10 @@ const LeftSide = () => {
     });
   };
 
+  const finalDrag = (e) => {
+    console.log(e);
+  };
+
   return (
     <section>
       <div className="imContainer">
@@ -251,6 +255,7 @@ const LeftSide = () => {
                 </div>
               </div>
               <img
+                onDragEnd={finalDrag}
                 ref={dragTulpin}
                 className="imTulpin"
                 src={tulpin}

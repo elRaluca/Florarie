@@ -227,3 +227,54 @@ const SpecialBouquet = () => {
 };
 
 export default SpecialBouquet;
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  setEmailNotFoundError(false);
+  setIncorrectPasswordError(false);
+
+  // Verifică dacă adresa de email există
+  const existingEmail = Users.find((user) => user.email === formData.email);
+  if (!existingEmail) {
+    setEmailNotFoundError(true);
+    return;
+  }
+
+  // Verifică dacă parola este corectă
+  const correctPassword = existingEmail.password; // Aici trebuie să ai o metodă mai sigură pentru verificarea parolei
+  if (formData.password !== correctPassword) {
+    setIncorrectPasswordError(true);
+    return;
+  }
+
+  // Aici poți adăuga logica pentru redirecționarea către pagina principală sau altă acțiune după autentificare
+  console.log("Successfully logged in!");
+
+  try {
+    console.log("Submitting form", formData);
+    const response = await axios.post("http://localhost:8060/auth/singin", {
+      email: formData.email,
+      password: formData.password,
+    });
+
+    const { token } = response.data;
+    localStorage.setItem("userToken", token);
+    // Logica după succesul autentificării
+    history.push("/home");
+    const data = response.data;
+    console.log(data);
+    // Aici poți de exemplu să salvezi tokenul de autentificare și să redirecționezi utilizatorul
+  } catch (error) {
+    // Gestionează erorile
+    if (error.response && error.response.status === 404) {
+      setEmailNotFoundError(true);
+    } else if (error.response && error.response.status === 401) {
+      setIncorrectPasswordError(true);
+    } else {
+      console.error("Login Error:", error.response || error);
+    }
+  }
+};
+
+<div className="testare">{userEmail && <div>Buna {userEmail}</div>}</div>;

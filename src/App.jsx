@@ -5,6 +5,7 @@ import Contact from "./pages/contact/Contact";
 import Navbar from "./components/Navbar";
 import Home from "./pages/home/Home";
 import SingUp from "./pages/singup/SingUp";
+import VerifyOtpPage from "./pages/singup/VerifyOtpPage";
 import LogIn from "./pages/login/LogIn";
 import SpecialBouquet from "./pages/specialbouquet/SpecialBouquet";
 import RecoverAccount from "./pages/recoveraccount/RecoverAccount";
@@ -12,6 +13,7 @@ import { products } from "./data.js";
 import ProductDetail from "./pages/productdetail/ProductDetail";
 import { useState } from "react";
 import ShoppingCart from "./pages/shoppingcart/ShoppingCart";
+import AddProductAdmin from "./pages/addProductAdmin/AddProductAdmin";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -40,7 +42,9 @@ const App = () => {
         <Route path="contact" element={<Contact />} />
         <Route path="singup" element={<SingUp />} />
         <Route path="login" element={<LogIn />} />
+        <Route path="verify-otp" element={<VerifyOtpPage />} />
         <Route path="recoveraccount" element={<RecoverAccount />} />
+        <Route path="addProductAdmin" element={<AddProductAdmin />} />
       </Routes>
     </Router>
   );

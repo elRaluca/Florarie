@@ -7,23 +7,31 @@ import { FaShoppingBasket } from "react-icons/fa";
 import { links } from "../data.js";
 import { useState } from "react";
 import ShoppingCart from "../pages/shoppingcart/ShoppingCart.jsx";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isNavShowing, setIsNavShowing] = useState(false);
+  const userEmail = localStorage.getItem("userEmail");
+  const navigate = useNavigate();
 
-  const navLinks = links.map(({ name, path }, index) => (
-    <li key={index}>
-      <NavLink
-        to={path}
-        className={({ isActive }) => (isActive ? "active-nav" : "")}
-        onClick={() => setIsNavShowing((prev) => !prev)}
-      >
-        {name}
-      </NavLink>
-    </li>
-  ));
+  const isUserLoggedIn = () => {
+    return !!localStorage.getItem("userToken");
+  };
 
-  // Adaugă Logo între penultimul și ultimul element
+  let navLinks = links
+    .filter((link) => !(link.name === "Sing Up" && isUserLoggedIn()))
+    .map(({ name, path }, index) => (
+      <li key={index}>
+        <NavLink
+          to={path}
+          className={({ isActive }) => (isActive ? "active-nav" : "")}
+          onClick={() => setIsNavShowing((prev) => !prev)}
+        >
+          {name}
+        </NavLink>
+      </li>
+    ));
+
   navLinks.splice(
     -1,
     0,
@@ -33,6 +41,22 @@ const Navbar = () => {
       </Link>
     </li>
   );
+
+  const handleSignOut = () => {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userEmail");
+    navigate("/login");
+  };
+
+  if (isUserLoggedIn()) {
+    navLinks.push(
+      <li key="signOut">
+        <button onClick={handleSignOut} className="singOutBt">
+          Sign Out
+        </button>
+      </li>
+    );
+  }
 
   return (
     <nav>

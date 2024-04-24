@@ -4,10 +4,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../images/logo.png";
 import { Users } from "../../data.js";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const SingUp = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    nameClient: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -23,22 +26,26 @@ const SingUp = () => {
   });
   const [emailError, setEmailError] = useState(false);
   const [usernameError, setUsernameError] = useState(false);
+  const navigate = useNavigate();
+  const [redirectToVerifyOtp, setRedirectToVerifyOtp] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
     if (name === "password") {
-      const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\^$*.\[\]{}()?\-“!@#%&/\\,><':;|_~`])\S{8,}$/;
 
       setPasswordError({
         isError: !passwordRegex.test(value),
         message:
-          "Password must have at least 8 characters, at least one uppercase letter, and at least one number.",
+          "Password must have at least 8 characters, at least one uppercase letter, at least one number and at least special caracter.",
       });
     }
     if (name === "confirmPassword") {
-      const confirmPasswordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+      const confirmPasswordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\^$*.\[\]{}()?\-“!@#%&/\\,><':;|_~`])\S{8,}$/;
 
       setConfirmPasswordError({
         isError: !confirmPasswordRegex.test(value),
@@ -62,12 +69,12 @@ const SingUp = () => {
     if (name === "email") {
       setEmailError(false);
     }
-    if (name === "username") {
+    if (name === "nameClient") {
       setUsernameError(false);
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Resetarea tuturor stărilor de eroare la începutul validării
@@ -83,31 +90,31 @@ const SingUp = () => {
     }
 
     // Verifică dacă username-ul este introdus
-    if (!formData.username.trim()) {
+    if (!formData.nameClient.trim()) {
       setUsernameError(true);
-      console.log("Please enter a username.");
+      console.log("Please enter a nameClient.");
     }
 
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\^$*.\[\]{}()?\-“!@#%&/\\,><':;|_~`])\S{8,}$/;
+
     if (!passwordRegex.test(formData.password)) {
       setPasswordError(true);
       console.log(
         "Password must have at least 8 characters, at least one uppercase letter, and at least one number."
       );
     }
-    // Verifică dacă parolele coincid
+
     if (formData.password !== formData.confirmPassword) {
       setPasswordError(true);
       console.log("Passwords differ.");
     }
 
-    // Verifică dacă parola este introdusă
     if (!formData.password.trim()) {
       setPasswordError(true);
       console.log("Please enter a password.");
     }
 
-    // Verifică dacă adresa de email există deja
     const existingEmail = Users.find((user) => user.email === formData.email);
     if (existingEmail) {
       setEmailError(true);
@@ -116,11 +123,35 @@ const SingUp = () => {
       );
     }
 
-    // Aici poți adăuga logica pentru trimiterea datelor către server sau altă acțiune
-    if (!emailError && !usernameError && !passwordError) {
-      console.log("Form data:", formData);
+    if (
+      !emailError &&
+      !usernameError &&
+      !passwordError.isError &&
+      !confirmPasswordError.isError
+    ) {
+      // Logica pentru trimiterea datelor către server folosind Axios
+      try {
+        const response = await axios.post("//localhost:8060/auth/singup", {
+          name: formData.nameClient,
+          email: formData.email,
+          password: formData.password,
+        });
+        setFormData({ ...formData, redirectToVerifyOtp: true });
+      } catch (error) {
+        console.error(
+          "There was an error!",
+          error.response ? error.response.data : error
+        );
+      }
     }
   };
+  if (formData.redirectToVerifyOtp) {
+    return (
+      <Navigate
+        to={`/verify-otp?email=${encodeURIComponent(formData.email)}`}
+      />
+    );
+  }
 
   const handleGoogleSignUp = () => {
     // Redirect sau alte acțiuni pentru autentificarea cu Google
@@ -163,12 +194,12 @@ const SingUp = () => {
 
             <form className="singUp_Form" onSubmit={handleSubmit}>
               <label className="singUp_label">
-                {formData.username.length === 0 && <span>Name</span>}
+                {formData.nameClient.length === 0 && <span>Name</span>}
                 <input
                   className={`singUp_input ${usernameError ? "error" : ""}`}
                   type="text"
-                  name="username"
-                  value={formData.username}
+                  name="nameClient"
+                  value={formData.nameClient}
                   onChange={handleChange}
                 />
               </label>

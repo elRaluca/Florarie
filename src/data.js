@@ -23,6 +23,10 @@ export const links = [
     path: "/home",
   },
   {
+    name: "Add Product",
+    path: "/addProductAdmin",
+  },
+  {
     name: "Sing Up",
     path: "/singup",
   },
