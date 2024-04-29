@@ -116,9 +116,11 @@ const ShoppingCart = ({ cart, setCart }) => {
                 <Link to={`/product/${item.id}`}>
                   <img
                     src={
-                      item.imageUrl.includes("data:image")
-                        ? item.imageUrl
-                        : require(`../../images/${item.imageUrl}`)
+                      item.image && item.image.includes("data:image")
+                        ? item.image
+                        : `http://localhost:8060${
+                            item.image
+                          }?v=${new Date().getTime()}`
                     }
                     alt={item.name}
                     className="cart_item_image"

@@ -24,12 +24,20 @@ const AddProductAdmin = () => {
     const formData = new FormData();
     formData.append("product", JSON.stringify(product));
     formData.append("image", image);
-
+    const token = localStorage.getItem("userToken");
     try {
-      const response = await fetch("http://localhost:8060/auth/createproduct", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "http://localhost:8060/admin/createproduct",
+        {
+          method: "POST",
+          headers: {
+            // Include tokenul JWT în headers pentru autentificare
+            Authorization: `Bearer ${token}`,
+          },
+
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         console.log("Product added successfully");

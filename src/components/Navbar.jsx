@@ -18,8 +18,32 @@ const Navbar = () => {
     return !!localStorage.getItem("userToken");
   };
 
+  const isAdmin = () => {
+    const userRole = localStorage.getItem("userRole");
+    console.log("Current user role:", userRole);
+    return userRole === "ROLE_ADMIN";
+  };
+
   let navLinks = links
-    .filter((link) => !(link.name === "Sing Up" && isUserLoggedIn()))
+    .filter((link) => {
+      if (link.name === "Sing Up" && isUserLoggedIn()) {
+        return false;
+      }
+      if (link.name === "Add Product" && !isAdmin()) {
+        return false;
+      }
+      if (link.name === "Special Bouquet" && isAdmin()) {
+        return false;
+      }
+      if (link.name === "Contact" && isAdmin()) {
+        return false;
+      }
+      if (link.name === "About Us" && isAdmin()) {
+        return false;
+      }
+
+      return true;
+    })
     .map(({ name, path }, index) => (
       <li key={index}>
         <NavLink
@@ -45,6 +69,7 @@ const Navbar = () => {
   const handleSignOut = () => {
     localStorage.removeItem("userToken");
     localStorage.removeItem("userEmail");
+    localStorage.removeItem("userRole"); // nu uita să elimini și rolul
     navigate("/login");
   };
 

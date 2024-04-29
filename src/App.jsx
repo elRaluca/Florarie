@@ -14,6 +14,7 @@ import ProductDetail from "./pages/productdetail/ProductDetail";
 import { useState } from "react";
 import ShoppingCart from "./pages/shoppingcart/ShoppingCart";
 import AddProductAdmin from "./pages/addProductAdmin/AddProductAdmin";
+import UpdareProductAdmin from "./pages/updateProductAdmin/UpdateProductAdmin";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -29,6 +30,10 @@ const App = () => {
           element={
             <ProductDetail products={products} cart={cart} setCart={setCart} />
           }
+        />
+        <Route
+          path="/updateProductAdmin/:productId"
+          element={<UpdareProductAdmin />}
         />
         <Route
           path="shoppingcart"

@@ -37,12 +37,20 @@ const LogIn = () => {
         "http://localhost:8060/auth/singin",
         formData
       );
+
       console.log("Response data:", response.data);
 
-      const { token, email } = response.data;
+      const { token, email, role } = response.data;
       // Stochează tokenul de autentificare în mod securizat, de exemplu în localStorage
       localStorage.setItem("userToken", token);
       localStorage.setItem("userEmail", email);
+      if (role) {
+        // Verifică dacă rolul există înainte de a încerca să-l salvezi
+        localStorage.setItem("userRole", role);
+      } else {
+        console.error("Role is missing from the response");
+      }
+      console.log("Saved role:", localStorage.getItem("userRole"));
       console.log("Successfully logged in!", response.data);
       // Redirecționează utilizatorul către pagina de home după autentificare
       navigate("/home");
