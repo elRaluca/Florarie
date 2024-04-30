@@ -12,15 +12,22 @@
 }
 
 .updateProduct form {
+  margin-left: 28rem;
   display: flex;
   flex-direction: column;
 }
 .updateProduct label {
+  text-align: center;
+  color: black;
   margin-bottom: 10px;
   border-radius: 3rem;
   font-weight: bold;
 }
-
+.desc {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aliniază textul la stânga dacă este necesar */
+}
 .updateProduct input,
 .updateProduct textarea {
   background-color: var(--color-gray-400);
@@ -44,4 +51,40 @@
   width: 20rem;
   height: 2rem;
   border-radius: 4px;
+  margin-left: 6.5rem;
+}
+
+.CurretnImage {
+  position: absolute;
+  color: black;
+  width: 15rem;
+  margin-top: 0.5rem;
+  margin-left: -40rem;
+}
+.CurretnImage p {
+  /* Asigură-te că numele clasei este corect scris: ar trebui să fie .CurrentImage, nu .CurretnImage */
+  position: absolute;
+  font-weight: 600;
+  text-align: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 16rem;
+  margin: auto;
+  height: fit-content; /* sau o valoare specifică dacă este necesar */
+  width: fit-content; /* sau o valoare specifică dacă este necesar */
+}
+
+.descInput {
+  margin-left: 6.5rem;
+  margin-top: -30px;
+}
+.nameInput {
+  margin-left: 3.5rem;
+}
+.priceInput {
+  margin-left: 4rem;
+}
+.imgInput {
+  margin-left: 3.5rem;
 }

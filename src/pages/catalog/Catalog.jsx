@@ -32,11 +32,15 @@ const Catalog = () => {
 
   const handleDeleteProduct = async (productId) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
+      const token = localStorage.getItem("userToken");
       try {
         const response = await fetch(
-          `http://localhost:8060/auth/delete/${productId}`,
+          `http://localhost:8060/admin/delete/${productId}`,
           {
             method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`, // adăugare token în header
+            },
           }
         );
         if (!response.ok) {
@@ -102,16 +106,18 @@ const Catalog = () => {
                       Delete
                     </button>
                   )}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      goToEditPage(product.id);
-                    }}
-                    className="updateBt"
-                  >
-                    Update
-                  </button>
+                  {isAdmin() && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        goToEditPage(product.id);
+                      }}
+                      className="updateBt"
+                    >
+                      Update
+                    </button>
+                  )}
                 </Card>
               </Link>
             );
