@@ -15,7 +15,9 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const isUserLoggedIn = () => {
-    return !!localStorage.getItem("userToken");
+    const loggedIn = !!localStorage.getItem("token");
+    console.log("Is user logged in:", loggedIn);
+    return loggedIn;
   };
 
   const isAdmin = () => {
@@ -30,6 +32,9 @@ const Navbar = () => {
         return false;
       }
       if (link.name === "Add Product" && !isAdmin()) {
+        return false;
+      }
+      if (link.name === "Orders" && !isAdmin()) {
         return false;
       }
       if (link.name === "Special Bouquet" && isAdmin()) {
@@ -67,7 +72,7 @@ const Navbar = () => {
   );
 
   const handleSignOut = () => {
-    localStorage.removeItem("userToken");
+    localStorage.removeItem("token");
     localStorage.removeItem("userEmail");
     localStorage.removeItem("userRole"); // nu uita să elimini și rolul
     navigate("/login");

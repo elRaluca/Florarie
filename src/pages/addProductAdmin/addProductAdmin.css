@@ -49,6 +49,9 @@
   color: var(--color-gray-700);
 }
 
+.feedbackImgAdd,
+.feedbackDescAdd,
+.feedbackNameAdd,
 .feedbackMessage {
   color: red;
 }

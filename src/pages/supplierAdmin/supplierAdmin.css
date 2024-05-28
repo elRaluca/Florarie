@@ -1,0 +1,40 @@
+.getAllSupp {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 4rem;
+}
+
+.getSupplier {
+  border: 2px solid black;
+  flex: 1 1 30%; /* Fiecare furnizor va ocupa aproximativ 30% din spațiul rândului, cu ajustare în funcție de dimensiunea ecranului */
+  margin: 0.5rem; /* Adaugă puțin spațiu între carduri */
+  padding: 1rem; /* Spațiu în interiorul fiecărui card */
+  box-sizing: border-box; /* Include paddingul și borderul în lățimea elementului */
+}
+
+.flowerSupp {
+  color: var(--color-gray-700);
+}
+
+.nameSupp {
+  font-weight: 800;
+  font-size: 1.3rem;
+}
+.getFlowerSupp {
+  font-weight: 800;
+  font-size: 1.3rem;
+}
+
+.deletSuppBt {
+  background-color: var(--color-gray-400);
+  padding: 10px 10px;
+  border-radius: 0.5rem;
+  margin-left: 33rem;
+}
+
+.addSupplier {
+  margin-top: 2rem;
+  color: black;
+  margin-left: 10rem;
+}

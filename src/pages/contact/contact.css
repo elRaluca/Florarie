@@ -1,132 +1,158 @@
-/* contact.css */
-
 .container_contact {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
   flex-wrap: wrap;
-  margin-top: 5rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 4rem;
+  margin-left: 3rem;
 }
 
-.contact_left {
+.contact_left,
+.contact-right {
   width: 50%;
-  /* Ajustează dimensiunea după necesități */
 }
 
-.contact_right {
-  width: 50%;
-  /* Ajustează dimensiunea după necesități */
-}
-
+/* Pentru fiecare secțiune */
 .facebook,
 .phone,
 .email,
 .twitter,
 .socials,
-.address,
-.hours {
+.address {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px; /* Poți ajusta acest margin după preferințe */
+  margin-bottom: 10px;
 }
 
+/* Styling pentru titluri */
 .facebook h4,
 .phone h4,
 .email h4,
 .twitter h4,
-.socials,
+.socials h4,
 .address h4,
 .hours h4 {
-  margin-left: 9rem;
+  margin-right: 1rem; /* Spațiu între titlu și conținut */
 }
 
-.phone p {
-  position: relative;
-  left: -21rem;
-}
-.contact_left .email a {
-  color: --color-gray-700; /* sau orice altă culoare dorită pentru legătură */
-  text-decoration: none; /* pentru a elimina sublinierea implicită a legăturii */
-}
-
-.email p {
-  position: relative;
-  left: -13.8rem;
-}
-
-.facebook p {
-  position: relative;
-  left: -17.1rem;
-}
-
-.twitter p {
-  position: relative;
-  left: -18rem;
-}
-.socials p {
-  position: relative;
-  left: -28rem;
-  color: var(--color-gray-700);
-}
-.socials a {
-  color: var(--color-gray-700);
-}
+/* Styling pentru conținutul fiecărei secțiuni */
+.facebook p,
+.phone p,
+.email p,
+.twitter p,
+.socials p,
 .address p {
-  position: relative;
-  left: -12.6rem;
+  flex-grow: 1;
+  text-align: left;
 }
 
+.hours h4 {
+  position: absolute;
+}
 .hours p {
   position: relative;
-  left: -5.5rem;
-  top: 2.6rem;
+  top: 1 rem;
+  margin-left: 10rem;
 }
-
-.hours {
-  position: relative;
-  top: -5rem;
-}
-.nameC_label,
-.emailC_label,
-.subject_label,
-.mess_label {
-  color: var(--color-gray-700);
-  margin-bottom: 1rem;
-}
-
-.contact_input {
-  width: 93%;
-  padding: 0.5rem;
-  margin: 0.5rem 0;
-  background-color: var(--color-gray-300);
-}
-
-.contact_textarea {
-  width: 93%;
-  height: 5rem;
-  padding: 0.5rem;
-  margin: 0.5rem 0;
-  background-color: var(--color-gray-300);
-}
-
-.contact_button {
-  background-color: var(--color-gray-300);
-  color: var(--color-gray-700);
-  padding: 0.5rem 1rem;
-  border: none;
-  cursor: pointer;
-}
-.contact_button:hover {
+.contact-right {
   background-color: var(--color-gray-400);
-}
-.contact_right h1 {
-  font-size: 2.5rem;
-  text-align: center;
+  justify-content: center; /* Centrează conținutul orizontal */
+  align-items: center; /* Centrează conținutul vertical */
+  text-align: center; /* Asigură că textul din interior este centrat */
+  height: 100%;
+  padding-top: 1rem;
+  padding-bottom: 10rem;
+  border-radius: 3rem;
 }
 
-.contact_right h2 {
-  font-size: 2.5rem;
-  text-align: center;
+.contact-right h4 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Extinde h4 pe toată lățimea containerului său */
+  height: 100%; /* Dacă este necesar, depinde de design */
+}
+
+.nameReview {
+  margin-top: 2rem;
+}
+
+.nameReview label,
+.messageReview label,
+.ratingReview label {
+  font-size: 1.5rem;
+  color: var(--color-gray-700);
+}
+
+.nameReview input {
+  margin-left: 1rem;
+  background-color: var(--color-gray-200);
+  height: 2rem;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.messageReview {
+  display: flex;
+  align-items: center; /* Centrează elementele pe axa orizontală */
+  justify-content: center; /* Centrează elementele pe axa verticală */
+  text-align: center; /* Asigură că textul din label este centrat */
+  margin-top: 1rem;
+}
+
+.messageReview label {
+  margin-left: -1.4rem;
+}
+
+.messageReview textarea {
+  background-color: var(--color-gray-200);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-left: 1rem;
+}
+
+.ratingReview {
+  margin-left: -1rem;
+  margin-top: 1rem;
+}
+
+.ratingReview label {
+  margin-top: -1rem;
+  margin-left: 0.7rem;
+}
+
+.ratingReview select {
+  background-color: var(--color-gray-200);
+  margin-left: 1.2rem;
+  border-radius: 0.5rem;
+  padding: 4px;
+  height: 2rem;
+  width: 12rem;
+}
+
+.ratingBt {
+  background-color: var(--color-gray-200);
+  margin-top: 1rem;
+  height: 2rem;
+  width: 12rem;
+  border-radius: 0.5rem;
+  margin-left: 5.5rem;
+}
+
+.ratingBt:hover {
+  background-color: var(--color-gray-300);
+}
+
+.feedbackName {
+  font-size: 15px;
+  color: red;
+  height: 9px;
+}
+
+.feedbackMessage {
+  font-size: 15px;
+  position: absolute;
+  margin-top: 5.5rem;
+  margin-left: 5rem;
+  color: red;
 }

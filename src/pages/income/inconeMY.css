@@ -1,21 +1,28 @@
 .income-container {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
   justify-content: space-between;
   padding: 20px;
   margin-top: 4rem;
 }
 .incomeLeft,
 .incomeRight {
-  width: 50%;
+  flex: 1; /* Fiecare secțiune va ocupa jumătate din spațiu */
+  padding: 20px; /* Spațiu în jurul conținutului */
+}
+.incomeRight {
+  width: 100%; /* Ocupă tot spațiul disponibil */
+  height: 30rem;
 }
 .incomeLeft h1 {
+  display: flex;
+  justify-content: center;
   font-size: 2rem;
   margin-bottom: 1rem;
 }
 
 .total-sales {
+  display: flex;
+  justify-content: center;
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
@@ -25,7 +32,6 @@
   justify-content: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
-  margin-left: -19rem;
 }
 
 .selectors label {
@@ -37,18 +43,14 @@
   margin-left: 0.5rem;
   padding: 0.5rem;
   font-size: 1rem;
-  border-radius: 0.5rem;
   background-color: var(--color-gray-400);
+  border-radius: 0.5rem;
 }
 
 .error-message {
-  color: #f44336;
-  font-size: 1rem;
-  margin-top: 1rem;
-}
-
-.incomeRight {
   display: flex;
-  position: absolute;
-  background-color: aqua;
+  justify-content: center;
+  color: red;
+  font-size: 1rem;
+  margin-top: 2rem;
 }

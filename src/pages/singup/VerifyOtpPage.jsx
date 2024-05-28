@@ -26,7 +26,7 @@ function VerifyOtpPage() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8060/auth/verify-otp",
+        "http://localhost:8060/public/verify-otp",
         {
           email,
           otp,
@@ -44,7 +44,7 @@ function VerifyOtpPage() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8060/auth/resend-otp",
+        "http://localhost:8060/public/resend-otp",
         {
           email,
         }

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Card from "../../UI/Card";
 import "./shoppingcart.css";
 import { Link, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { getUserIdFromToken } from "../productdetail/getUserIdFromToken";
 
 const ShoppingCart = ({ cart, setCart }) => {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -10,27 +12,110 @@ const ShoppingCart = ({ cart, setCart }) => {
     name: "",
     phone: "",
     city: "",
-    county: "",
+    country: "",
     street: "",
   });
 
   const [paymentMethod, setPaymentMethod] = useState("ramburs");
   const [deliveryMethod, setDeliveryMethod] = useState("personal_lift");
-  const [isCardPaymentSelected, setIsCardPaymentSelected] = useState(false);
   const navigate = useNavigate();
+  const userId = getUserIdFromToken();
 
   useEffect(() => {
-    // Calcularea prețului total la fiecare actualizare a coșului
-    const newTotalPrice = cart.reduce(
-      (accumulator, currentItem) =>
-        accumulator + currentItem.price * currentItem.quantity,
-      0
-    );
-    setTotalPrice(newTotalPrice);
-  }, [cart]);
+    const fetchCart = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8060/public/cart/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
 
-  const removeFromCart = (productId) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+        console.log("merge");
+        if (!response.ok) {
+          throw new Error("Failed1");
+        }
+        const data = await response.json();
+        if (data && Array.isArray(data.items)) {
+          setCart(data.items);
+        } else {
+          console.error("Data fetched is not an array:", data);
+          setCart([]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch cart", error.message);
+        setCart([]);
+      }
+    };
+    fetchCart();
+  }, [userId, setCart]);
+  const fetchTotalPrice = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8060/public/totalPrice/${userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch the total price");
+      }
+      const total = await response.json();
+      setTotalPrice(total);
+    } catch (error) {
+      console.error("Error fetching total price:", error);
+    }
+  };
+  useEffect(() => {
+    if (!userId) {
+      navigate("/login");
+    } else {
+      fetchTotalPrice();
+    }
+  }, [userId, navigate]);
+
+  const removeProductFromCart = async (userId, productId) => {
+    if (!userId || !productId) {
+      console.error("User ID or Product ID is not available.");
+      return;
+    }
+
+    const url = `http://localhost:8060/public/removeProductToCart/${userId}/${productId}`;
+
+    try {
+      const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        const contentType = response.headers.get("Content-Type");
+        if (contentType && contentType.includes("application/json")) {
+          const errorData = await response.json();
+          throw new Error(
+            errorData.message || "Failed to remove product from cart"
+          );
+        } else {
+          const textError = await response.text();
+          throw new Error(textError || "Failed to remove product from cart");
+        }
+      }
+
+      const data = await response.json();
+      setCart(data.items);
+      console.log("Product removed:", data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const clearCart = () => {
@@ -38,16 +123,81 @@ const ShoppingCart = ({ cart, setCart }) => {
     setCustomerInfo([]);
   };
 
-  const handleQuantityChange = (productId, newQuantity) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === productId
-          ? { ...item, quantity: Math.max(parseInt(newQuantity, 10), 1) }
-          : item
-      )
-    );
+  const incrementProductInCart = async (userId, productId) => {
+    if (!userId || !productId) {
+      console.error("User ID or Product ID is not available.");
+      return;
+    }
+
+    try {
+      // Asigură-te că URL-ul este corect construit cu userId și productId
+      const url = `http://localhost:8060/public/increment/${userId}/${productId}`;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      const data = await response.json();
+      if (data && Array.isArray(data.items)) {
+        setCart(data.items);
+      } else {
+        console.error("Data fetched is not an array:", data);
+        setCart([]); // Asigură-te că starea cart este resetată la un array gol dacă datele primite nu sunt conforme
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to increment product in cart: ${response.statusText}`
+        );
+      }
+      fetchTotalPrice();
+      console.log("Product quantity incremented successfully");
+    } catch (error) {
+      console.error("Error incrementing product in cart:", error.message);
+    }
   };
 
+  const decrementProductInCart = async (userId, productId) => {
+    if (!userId || !productId) {
+      console.error("User ID or Product ID is not available.");
+      return;
+    }
+
+    const url = `http://localhost:8060/public/decrement/${userId}/${productId}`;
+
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        const contentType = response.headers.get("Content-Type");
+        if (contentType && contentType.includes("application/json")) {
+          const errorData = await response.json();
+          throw new Error(
+            errorData.message || "Failed to decrement product in cart"
+          );
+        } else {
+          const textError = await response.text();
+          throw new Error(textError || "Failed to decrement product in cart");
+        }
+      }
+      fetchTotalPrice();
+
+      const data = await response.json();
+      setCart(data.items);
+      console.log("Product quantity decremented successfully");
+    } catch (error) {
+      console.error("Error decrementing product in cart:", error.message);
+    }
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCustomerInfo((prevInfo) => ({
@@ -56,53 +206,60 @@ const ShoppingCart = ({ cart, setCart }) => {
     }));
   };
 
-  const handlePaymentMethodChange = (method) => {
-    setPaymentMethod(method);
-    if (method === "card") {
-      setIsCardPaymentSelected(true);
-    } else {
-      setIsCardPaymentSelected(false);
-    }
-  };
   const handleDeliveryMethodChange = (method) => {
     setDeliveryMethod(method);
   };
 
-  const handleSubmitOrder = (e) => {
+  const handleSubmitOrder = async (e) => {
     e.preventDefault();
+    if (!customerInfo.email || !customerInfo.name) {
+      // Add any necessary validation
+      alert("Please fill all required fields.");
+      return;
+    }
 
-    if (
-      customerInfo.email &&
-      customerInfo.name &&
-      customerInfo.phone &&
-      customerInfo.city &&
-      customerInfo.county &&
-      customerInfo.street &&
-      paymentMethod &&
-      deliveryMethod
-    ) {
-      if (!(paymentMethod === "card" && someConditionIsNotMet())) {
-        if (isCardPaymentSelected) {
-          // Dacă plata cu cardul este selectată, redirecționează către pagina "/aboutus"
-          navigate("/aboutus");
-        } else {
-          console.log("Order placed:", {
-            totalPrice,
-            customerInfo,
-            paymentMethod,
-            deliveryMethod,
-          });
-          clearCart();
+    // Construct the delivery details and items payload according to your backend requirements
+    const orderDetails = {
+      delivery: {
+        ...customerInfo,
+        deliveryMethod: deliveryMethod,
+      },
+      items: cart.map((item) => ({
+        productId: item.id,
+        quantity: item.quantity,
+        price: item.productPrice * item.quantity,
+      })),
+    };
+
+    try {
+      const response = await fetch(
+        `http://localhost:8060/user/placeorder/${userId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(orderDetails),
         }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(`Failed to place order: ${errorData.message}`);
+        return;
       }
+
+      console.log("Order placed successfully");
+      clearCart();
+    } catch (error) {
+      console.error("Error placing order:", error);
+      console.log("Sending order details:", JSON.stringify(orderDetails));
+      alert("Error placing order, try again later.");
     }
   };
 
-  const someConditionIsNotMet = () => {
-    // De exemplu, poți verifica dacă informațiile necesare pentru plata cu cardul sunt disponibile
-    return !customerInfo.cardNumber || !customerInfo.cardExpiration;
-  };
-
+  console.log(cart);
   return (
     <div className="shoppingcart">
       <div className="container_shoppingcart">
@@ -116,32 +273,37 @@ const ShoppingCart = ({ cart, setCart }) => {
                 <Link to={`/product/${item.id}`}>
                   <img
                     src={
-                      item.image && item.image.includes("data:image")
+                      item.image && item.image.startsWith("data:image")
                         ? item.image
                         : `http://localhost:8060${
-                            item.image
+                            item.productImage
                           }?v=${new Date().getTime()}`
                     }
                     alt={item.name}
                     className="cart_item_image"
+                    onError={(e) => {
+                      console.log("Image failed to load for item:", item);
+                    }}
                   />
                 </Link>
                 <div className="details">
-                  <h1>{item.price * item.quantity} $</h1>
+                  <h1>{(item.productPrice * item.quantity).toFixed(2)} $</h1>
+
                   <div className="quantity_container">
                     <button
                       className="minusBtn"
                       onClick={() =>
-                        handleQuantityChange(item.id, item.quantity - 1)
+                        decrementProductInCart(userId, item.productId)
                       }
                     >
                       -
                     </button>
+
                     <p>{item.quantity}</p>
                     <button
                       className="plusBtn"
                       onClick={() =>
-                        handleQuantityChange(item.id, item.quantity + 1)
+                        incrementProductInCart(userId, item.productId)
                       }
                     >
                       +
@@ -150,7 +312,9 @@ const ShoppingCart = ({ cart, setCart }) => {
                   <div className="removeBtn">
                     <button
                       className="btn lg"
-                      onClick={() => removeFromCart(item.id)}
+                      onClick={() =>
+                        removeProductFromCart(userId, item.productId)
+                      }
                     >
                       Remove
                     </button>
@@ -212,8 +376,8 @@ const ShoppingCart = ({ cart, setCart }) => {
             <input
               className="county_input"
               type="text"
-              name="county"
-              value={customerInfo.county || ""}
+              name="country"
+              value={customerInfo.country || ""}
               onChange={handleInputChange}
             />
           </label>
@@ -229,22 +393,7 @@ const ShoppingCart = ({ cart, setCart }) => {
           </label>
           <div className="payment-method-selector">
             <p>Payment method:</p>
-            <div
-              className={`payment-option ${
-                paymentMethod === "ramburs" ? "active" : ""
-              }`}
-              onClick={() => handlePaymentMethodChange("ramburs")}
-            >
-              Ramburs
-            </div>
-            <div
-              className={`payment-option ${
-                paymentMethod === "card" ? "active" : ""
-              }`}
-              onClick={() => handlePaymentMethodChange("card")}
-            >
-              Card
-            </div>
+            <div className="payment-option">Ramburs</div>
           </div>
           <div className="delivery_method_selector">
             <p>Delivery method:</p>
@@ -252,7 +401,7 @@ const ShoppingCart = ({ cart, setCart }) => {
               className={`delivery_option ${
                 deliveryMethod === "personal lift" ? "active" : ""
               }`}
-              onClick={() => handleDeliveryMethodChange("personal lift")}
+              onClick={() => handleDeliveryMethodChange("PERSONAL_LIFT")}
             >
               Personal lift
             </div>
@@ -260,7 +409,7 @@ const ShoppingCart = ({ cart, setCart }) => {
               className={`delivery_option ${
                 deliveryMethod === "courier" ? "active" : ""
               }`}
-              onClick={() => handleDeliveryMethodChange("courier")}
+              onClick={() => handleDeliveryMethodChange("COURIER")}
             >
               Courier
             </div>
@@ -272,11 +421,10 @@ const ShoppingCart = ({ cart, setCart }) => {
               !customerInfo.name ||
               !customerInfo.phone ||
               !customerInfo.city ||
-              !customerInfo.county ||
+              !customerInfo.country ||
               !customerInfo.street ||
               !paymentMethod ||
-              !deliveryMethod ||
-              (paymentMethod === "card" && someConditionIsNotMet())
+              !deliveryMethod
                 ? "disabled"
                 : ""
             }`}
@@ -286,14 +434,13 @@ const ShoppingCart = ({ cart, setCart }) => {
               !customerInfo.name ||
               !customerInfo.phone ||
               !customerInfo.city ||
-              !customerInfo.county ||
+              !customerInfo.country ||
               !customerInfo.street ||
               !paymentMethod ||
-              !deliveryMethod ||
-              (paymentMethod === "card" && someConditionIsNotMet())
+              !deliveryMethod
             }
           >
-            {paymentMethod === "card" ? "Place Order" : "Place Order"}
+            Place Order
           </button>
         </form>
       </div>

@@ -30,6 +30,9 @@ export const links = [
     name: "Sing Up",
     path: "/singup",
   },
+  { name: "Orders", path: "/ordersAdmin" },
+  { name: "IncomeMY", path: "/income" },
+  { name: "Supplier", path: "/supplierAdmin" },
 ];
 
 // data.js

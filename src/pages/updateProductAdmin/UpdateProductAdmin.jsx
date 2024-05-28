@@ -5,7 +5,9 @@ import "./updateProductAdmin.css";
 
 function ProductForm() {
   const { productId } = useParams(); // Extrage ID-ul produsului din URL
-
+  const [feedbackDesc, setFeedbackDesc] = useState("");
+  const [feedbackName, setFeedbackName] = useState("");
+  const [feedbackImg, setFeedbackImg] = useState("");
   const [product, setProduct] = useState({
     name: "",
     price: "",
@@ -52,27 +54,55 @@ function ProductForm() {
     }
   }, [productId]); // 'productId' ca dependință pentru a reîncărca datele la schimbarea ID-ului
 
-  // Manipulează schimbările în formular
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProduct((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setProduct({ ...product, [name]: value });
+
+    // Actualizăm feedback-ul pentru fiecare câmp
+    if (name === "description") {
+      const maxLength = 250;
+      const currentLength = value.length;
+      setFeedbackDesc(`${maxLength - currentLength} characters left`);
+    } else if (name === "name") {
+      const maxLength = 13;
+      const currentLength = value.length;
+      setFeedbackName(`${maxLength - currentLength} characters left`);
+    }
   };
 
   // Manipulează schimbările fișierului de imagine
   const handleFileChange = (e) => {
-    setProduct((prev) => ({
-      ...prev,
-      image: e.target.files[0],
-    }));
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const img = new Image();
+        img.onload = () => {
+          if (img.width === 452 && img.height === 552) {
+            setProduct((prev) => ({ ...prev, image: file }));
+            setFeedbackImg(""); // Resetează mesajul de eroare dacă dimensiunile sunt corecte
+          } else {
+            setProduct((prev) => ({ ...prev, image: null })); // Asigură-te că resetezi imaginea
+            setFeedbackImg("Image must be 452x552 pixels.");
+          }
+        };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setProduct((prev) => ({ ...prev, image: null })); // Resetează imaginea dacă niciun fișier nu este selectat
+      setFeedbackImg(""); // Resetează mesajul de eroare
+    }
   };
 
   // Manipulează trimiterea formularului
   // Manipulează trimiterea formularului
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!product.image || feedbackImg == "Image must be 452x552 pixels.") {
+      alert("Please fix the errors before submitting.");
+      return;
+    }
     const formData = new FormData();
     formData.append(
       "product",
@@ -86,7 +116,7 @@ function ProductForm() {
     if (product.image) {
       formData.append("image", product.image);
     }
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem("token");
 
     try {
       const response = await fetch(
@@ -120,6 +150,7 @@ function ProductForm() {
           <label>
             Name:
             <input
+              maxLength="13"
               className="nameInput"
               type="text"
               name="name"
@@ -127,6 +158,7 @@ function ProductForm() {
               onChange={handleChange}
             />
           </label>
+          <div className="feedbackName">{feedbackName}</div> {}
           <label>
             Price:
             <input
@@ -140,12 +172,14 @@ function ProductForm() {
           <label className="desc">
             Description:
             <textarea
+              maxLength="250"
               className="descInput"
               name="description"
               value={product.description}
               onChange={handleChange}
             />
           </label>
+          <div className="feedbackDesc">{feedbackDesc}</div> {}
           <label>
             Image:
             <input
@@ -155,7 +189,7 @@ function ProductForm() {
               onChange={handleFileChange}
             />
           </label>
-
+          <div className="feedbackImg">{feedbackImg}</div> {}
           <button className="UpdateProductBt" type="submit">
             Update Product
           </button>

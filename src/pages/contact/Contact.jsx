@@ -1,11 +1,54 @@
 import "./contact.css";
 import Footer from "../../components/Footer";
 import SectionHead from "../../components/SectionHead";
-import React from "react";
-import ContactForm from "../../components/ContactForm";
 import { FaTwitter, FaFacebookF } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
 
 const Contact = () => {
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
+  const [rating, setRating] = useState(1);
+  const [feedbackName, setFeedbackName] = useState("");
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "name") {
+      setName(value);
+      const maxLength = 30;
+      setFeedbackName(`${maxLength - value.length} characters left`);
+    } else if (name === "message") {
+      setMessage(value);
+      const maxLength = 500;
+      setFeedbackMessage(`${maxLength - value.length} characters left`);
+    }
+  };
+
+  function addReview() {
+    const review = { name, message, rating };
+
+    fetch("http://localhost:8060/user/reviews", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(review),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Review added:", data);
+        // You might want to clear the form or provide feedback to the user here
+        setName("");
+        setMessage("");
+        setRating(1);
+        setFeedbackName("");
+        setFeedbackMessage("");
+      })
+      .catch((error) => console.error("Error:", error));
+  }
+
   return (
     <section className="contact">
       <SectionHead title="CONTACT" subtitle="CONTACT" />
@@ -27,43 +70,68 @@ const Contact = () => {
             <h4>TWITTER:</h4>
             <p>Blossom Boutique</p>
           </div>
-          <div className="socials">
-            <a
-              href="https://facebook.com/"
-              target="blank"
-              rel="noreferrer noopener"
-            >
-              <FaFacebookF />
-            </a>
-            <p
-              href="https://twitter.com/"
-              target="blank"
-              rel="noreferrer noopener"
-            >
-              <FaTwitter />
-            </p>
-          </div>
+
           <div className="address">
             <h4>ADDRESS:</h4>
             <p>Bucuresti, Aleea Primaverii 49</p>
           </div>
           <div className="hours">
             <h4>OPENING HOURS:</h4>
-            <p>
-              <p>Monday 08:00-18:00</p>
-              <p>Tuesday 08:00-18:00</p>
-              <p>Wednesday 08:00-18:00</p>
-              <p>Thursday 08:00-18:00 </p>
-              <p>Friday 08:00-16:00 </p>
-              <p>Saturday 08:00-16:00</p>
-              <p>Sunday 08:00-14:00</p>
-            </p>
+            <p>Monday 08:00-18:00</p>
+            <p>Tuesday 08:00-18:00</p>
+            <p>Wednesday 08:00-18:00</p>
+            <p>Thursday 08:00-18:00</p>
+            <p>Friday 08:00-16:00</p>
+            <p>Saturday 08:00-16:00</p>
+            <p>Sunday 08:00-14:00</p>
           </div>
         </div>
-        <div className="contact_right">
-          <h1>SEND A </h1>
-          <h2>MESSAGE</h2>
-          <ContactForm />
+        <div className="contact-right">
+          <h1>Review us</h1>
+          <div className="nameReview">
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              maxLength="30"
+              name="name"
+              value={name}
+              onChange={handleInputChange}
+              required
+              placeholder="Your Name"
+            />
+            <div className="feedbackName">{feedbackName}</div>
+          </div>
+          <div className="messageReview">
+            <label htmlFor="message">Message:</label>
+            <textarea
+              id="message"
+              maxLength="500"
+              name="message"
+              value={message}
+              onChange={handleInputChange}
+              required
+              placeholder="Your Message"
+            ></textarea>
+            <div className="feedbackMessage">{feedbackMessage}</div>
+          </div>
+          <div className="ratingReview">
+            <label htmlFor="rating">Rating:</label>
+            <select
+              value={rating}
+              onChange={(e) => setRating(Number(e.target.value))}
+              required
+            >
+              {[1, 2, 3, 4, 5].map((rate) => (
+                <option key={rate} value={rate}>
+                  {rate}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button className="ratingBt" onClick={() => addReview()}>
+            Send
+          </button>
         </div>
       </div>
       <Footer />

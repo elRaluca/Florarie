@@ -51,7 +51,7 @@ const IncomeMY = () => {
 
   return (
     <section className="income">
-      <SectionHead title="INBLOCARE" subtitle="INUCOME" />
+      <SectionHead title="INCOME" subtitle="INCOME" />
       <div className="income-container">
         <div className="incomeLeft">
           <h1>
@@ -85,29 +85,35 @@ const IncomeMY = () => {
               </select>
             </label>
           </div>
+          {error && <p className="error-message">Error: {error}</p>}
         </div>
         <div className="incomeRight">
           {loading ? (
             <p>Loading...</p>
           ) : (
-            <ResponsiveContainer width="100%" height={400}>
+            <ResponsiveContainer>
               <BarChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="#666666"
+                  vertical={false}
+                  horizontal={true}
+                />
+                <XAxis stroke="#000000" dataKey="name" />
                 <YAxis
-                  domain={[0, 100000]} // Setează domeniul pentru a include toate valorile de pe axa Y
+                  stroke="#000000"
+                  className="yaxis"
+                  domain={[0, 50000]}
                   ticks={[
                     0, 2500, 5000, 7500, 10000, 15000, 20000, 25000, 50000,
-                    100000,
-                  ]} // Extinde valorile pentru etichetele axei Y
+                  ]}
                 />
-                <Tooltip />
-                <Bar dataKey="Total" fill="#7312d0" />
+
+                <Bar dataKey="Total" fill="#8884d8" />
               </BarChart>
             </ResponsiveContainer>
           )}
         </div>
-        {error && <p className="error-message">Error: {error}</p>}
       </div>
     </section>
   );

@@ -56,7 +56,7 @@ const RecoverAccount = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8060/auth/request-reset-password",
+        "http://localhost:8060/public/request-reset-password",
         { email }
       );
       if (response.status >= 200 && response.status < 300) {
@@ -100,7 +100,7 @@ const RecoverAccount = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8060/auth/set-password",
+        "http://localhost:8060/public/set-password",
         {
           email: formData.email,
           resetCode: formData.code,

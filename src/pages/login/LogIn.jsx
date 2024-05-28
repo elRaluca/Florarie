@@ -34,7 +34,7 @@ const LogIn = () => {
     try {
       console.log("Submitting form", formData);
       const response = await axios.post(
-        "http://localhost:8060/auth/singin",
+        "http://localhost:8060/public/singin",
         formData
       );
 
@@ -42,7 +42,7 @@ const LogIn = () => {
 
       const { token, email, role } = response.data;
       // Stochează tokenul de autentificare în mod securizat, de exemplu în localStorage
-      localStorage.setItem("userToken", token);
+      localStorage.setItem("token", token);
       localStorage.setItem("userEmail", email);
       if (role) {
         // Verifică dacă rolul există înainte de a încerca să-l salvezi

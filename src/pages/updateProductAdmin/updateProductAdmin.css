@@ -88,3 +88,10 @@
 .imgInput {
   margin-left: 3.5rem;
 }
+
+.feedbackDesc,
+.feedbackName,
+.feedbackImg {
+  color: red;
+  margin-left: 6.5rem;
+}

@@ -131,11 +131,15 @@ const SingUp = () => {
     ) {
       // Logica pentru trimiterea datelor către server folosind Axios
       try {
-        const response = await axios.post("//localhost:8060/auth/singup", {
+        const response = await axios.post("//localhost:8060/public/singup", {
           name: formData.nameClient,
           email: formData.email,
           password: formData.password,
         });
+        const { token, email, role } = response.data;
+        localStorage.setItem("token", token); // Salvează tokenul în localStorage
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userRole", role);
         setFormData({ ...formData, redirectToVerifyOtp: true });
       } catch (error) {
         console.error(

@@ -1,0 +1,68 @@
+.order {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 4rem;
+}
+
+.orderItem {
+  flex: 1 1 calc(25% - 10px); /* Asigură că fiecare element ocupă 25% minus margini */
+  margin: 5px;
+  padding: 0px 35px 35px;
+  border: 2px solid black;
+}
+
+.orderDetail {
+  padding: 15px 0 30px;
+}
+
+.orderDetail p,
+.deliveryDetail p {
+  font-size: 1.1rem;
+}
+
+.optionValue {
+  background-color: var(--color-gray-400);
+  height: 2rem;
+  width: 7rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  padding: 0 5px;
+}
+.updateStatusBt {
+  background-color: var(--color-gray-400);
+  height: 2rem;
+  width: 7rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+.updateStatusBt:hover {
+  background-color: var(--color-gray-300);
+}
+
+.searchBar {
+  margin-top: 6rem;
+  margin-left: 1rem;
+}
+
+.searchBar input {
+  background-color: var(--color-gray-400);
+  padding: 10px 10px 10px;
+  width: 20rem;
+  border-radius: 1rem;
+  border: 2px solid black;
+}
+
+.searchBar button {
+  background-color: var(--color-gray-400);
+  margin-left: 1rem;
+  padding: 10px 10px 10px;
+  border-radius: 1rem;
+  border: 2px solid black;
+}
+
+.searchBar button:hover {
+  background-color: var(--color-gray-300);
+}

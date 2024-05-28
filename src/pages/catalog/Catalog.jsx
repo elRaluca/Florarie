@@ -15,7 +15,7 @@ const Catalog = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:8060/auth/product");
+        const response = await fetch("http://localhost:8060/public/product");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -32,14 +32,14 @@ const Catalog = () => {
 
   const handleDeleteProduct = async (productId) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
-      const token = localStorage.getItem("userToken");
+      const token = localStorage.getItem("token");
       try {
         const response = await fetch(
           `http://localhost:8060/admin/delete/${productId}`,
           {
             method: "DELETE",
             headers: {
-              Authorization: `Bearer ${token}`, // adăugare token în header
+              Authorization: `Bearer ${token}`,
             },
           }
         );

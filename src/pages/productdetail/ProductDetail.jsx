@@ -1,12 +1,23 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./productdetail.css";
+import { getUserIdFromToken } from "./getUserIdFromToken";
+import { useNavigate } from "react-router-dom";
 
 const ProductDetail = ({ cart, setCart }) => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const userId = getUserIdFromToken();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userId) {
+      console.error("User ID is not available. User might not be logged in.");
+      navigate("/login");
+    }
+  }, [userId, navigate]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -14,7 +25,7 @@ const ProductDetail = ({ cart, setCart }) => {
       setError(null);
       try {
         const response = await fetch(
-          `http://localhost:8060/auth/product/${productId}`
+          `http://localhost:8060/public/product/${productId}`
         );
         if (!response.ok) {
           throw new Error("Product not found");
@@ -31,22 +42,43 @@ const ProductDetail = ({ cart, setCart }) => {
     fetchProduct();
   }, [productId]);
 
-  const addToCart = () => {
+  const addToCart = async () => {
+    if (!userId) {
+      console.error("User ID is not available. User might not be logged in.");
+      return;
+    }
     if (typeof setCart === "function" && product) {
-      const existingProduct = cart.find((item) => item.id === product.id);
-      if (existingProduct) {
-        setCart((prevCart) =>
-          prevCart.map((item) =>
-            item.id === product.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          )
-        );
-      } else {
-        setCart((prevCart) => [...prevCart, { ...product, quantity: 1 }]);
+      const quantity = 1; // Simplifying the addition to always add 1 unit
+      try {
+        // Construiește URL-ul cu query parameters direct în URL
+        const url = new URL(`http://localhost:8060/public/add`);
+        url.searchParams.append("userId", userId);
+        url.searchParams.append("productId", product.id);
+        url.searchParams.append("quantity", quantity);
+
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to add product to cart: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Product added to cart successfully", data);
+        setCart((prevCart) => [
+          ...prevCart,
+          { ...product, quantity: quantity },
+        ]); // Update the cart state
+      } catch (error) {
+        console.error("Error adding product to cart:", error.message);
       }
     } else {
-      console.error("setCart is not a function");
+      console.error("setCart is not a function or product is null");
     }
   };
 
