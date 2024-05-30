@@ -13,23 +13,27 @@
 }
 
 .orderDetail {
-  padding: 15px 0 30px;
+  padding: 15px 0 20px;
 }
 
 .orderDetail p,
 .deliveryDetail p {
   font-size: 1.1rem;
 }
-
-.optionValue {
+.orderSatus {
+  margin-top: 1rem;
+}
+.optionValue,
+.optionValueDelivery {
   background-color: var(--color-gray-400);
   height: 2rem;
-  width: 7rem;
+  width: 7.2rem;
   font-size: 1rem;
   border-radius: 10px;
-  padding: 0 5px;
+  padding: 0 3px;
 }
-.updateStatusBt {
+.updateStatusBt,
+.updateStatusDelBt {
   background-color: var(--color-gray-400);
   height: 2rem;
   width: 7rem;
@@ -38,7 +42,8 @@
   margin-left: 10px;
 }
 
-.updateStatusBt:hover {
+.updateStatusBt:hover,
+.updateStatusDelBt:hover {
   background-color: var(--color-gray-300);
 }
 
@@ -65,4 +70,30 @@
 
 .searchBar button:hover {
   background-color: var(--color-gray-300);
+}
+
+.img-label {
+  cursor: pointer;
+  display: block;
+  width: fit-content; /* Pentru a se potrivi dimensiunii imaginii */
+}
+
+.img-label img {
+  transition: transform 0.3s ease; /* Animatie pentru transformare */
+  display: block;
+  width: 100%; /* Poți să ajustezi lățimea inițială după preferințe */
+  max-width: 300px; /* O lățime maximă inițială */
+}
+
+.img-checkbox {
+  display: none; /* Ascunde checkbox-ul */
+}
+
+.img-checkbox:checked + .img-label img {
+  transform: scale(6) translate(-20%, -10%); /* Mărește imaginea și o translatează pentru centrare */
+  max-width: none; /* Elimină limita de lățime la mărire */
+  position: fixed; /* Poziționare fixă pentru a rămâne în centrul viewport-ului */
+  top: 50%; /* Centrare verticală */
+  left: 50%; /* Centrare orizontală */
+  z-index: 1000; /* Asigură că este deasupra altor elemente */
 }

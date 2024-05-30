@@ -3,6 +3,8 @@ import Footer from "../../components/Footer";
 import SectionHead from "../../components/SectionHead";
 import { FaTwitter, FaFacebookF } from "react-icons/fa";
 import React, { useState, useEffect } from "react";
+import { getUserIdFromToken } from "../productdetail/getUserIdFromToken";
+import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -10,6 +12,8 @@ const Contact = () => {
   const [rating, setRating] = useState(1);
   const [feedbackName, setFeedbackName] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
+  const userId = getUserIdFromToken();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -26,6 +30,11 @@ const Contact = () => {
   };
 
   function addReview() {
+    if (!userId) {
+      console.error("User ID is not available. User might not be logged in.");
+      navigate("/login");
+      return; // Oprire executare funcție dacă utilizatorul nu este autentificat
+    }
     const review = { name, message, rating };
 
     fetch("http://localhost:8060/user/reviews", {

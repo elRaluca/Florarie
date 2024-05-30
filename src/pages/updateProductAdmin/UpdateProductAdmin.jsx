@@ -20,7 +20,7 @@ function ProductForm() {
   const fetchProduct = async (productId) => {
     try {
       const response = await fetch(
-        `http://localhost:8060/auth/product/${productId}`
+        `http://localhost:8060/public/product/${productId}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch product");
@@ -43,7 +43,7 @@ function ProductForm() {
             name: data.name,
             price: data.price,
             description: data.description,
-            image: null,
+            image: data.image,
             imageUrl: `http://localhost:8060${data.image}`,
           });
         })

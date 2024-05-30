@@ -148,39 +148,7 @@ const SupplierForum = ({ onFormSubmit }) => {
           placeholder="Zip Code"
           required
         />
-        <textarea
-          name="additionalInfo"
-          value={formData.additionalInfo}
-          onChange={handleChange}
-          placeholder="Additional Info"
-        />
-        <h3>Flowers</h3>
-        {formData.supplierFlowers.map((flower, index) => (
-          <div className="flower-group" key={index}>
-            <input
-              type="text"
-              name="flowerType"
-              value={flower.flowerType}
-              onChange={(e) => handleFlowerChange(index, e)}
-              placeholder="Flower Type"
-              required
-            />
-            <input
-              type="number"
-              name="quantity"
-              value={flower.quantity}
-              onChange={(e) => handleFlowerChange(index, e)}
-              placeholder="Quantity"
-              required
-            />
-            <button type="button" onClick={() => handleRemoveFlower(index)}>
-              Remove
-            </button>
-          </div>
-        ))}
-        <button type="button" onClick={handleAddFlower}>
-          Add Flower
-        </button>
+
         <button type="submit">Save</button>
       </form>
     </div>

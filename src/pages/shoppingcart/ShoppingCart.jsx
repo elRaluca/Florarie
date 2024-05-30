@@ -51,6 +51,7 @@ const ShoppingCart = ({ cart, setCart }) => {
     };
     fetchCart();
   }, [userId, setCart]);
+
   const fetchTotalPrice = async () => {
     try {
       const response = await fetch(

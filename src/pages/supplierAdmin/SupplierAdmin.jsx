@@ -84,14 +84,6 @@ const SupplierAdmin = () => {
             <p>City: {supplier.city}</p>
             <p>Country: {supplier.country}</p>
             <p>Zip Code: {supplier.zipCode}</p>
-            <p>Additional Info: {supplier.additionalInfo}</p>
-            <p className="getFlowerSupp">Flowers:</p>
-
-            {supplier.supplierFlowers.map((flower, index) => (
-              <li className="flowerSupp" key={index}>
-                {flower.flowerType} - {flower.quantity}
-              </li>
-            ))}
           </div>
         ))}
       </div>

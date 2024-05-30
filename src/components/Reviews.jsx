@@ -3,17 +3,16 @@ import SectionHead from "./SectionHead";
 import Card from "../UI/Card";
 import "./Reviews.css";
 import { FaStar, FaArrowRight, FaArrowLeft } from "react-icons/fa";
-import staticImageUrl from "../images/boy.jpg";
+import staticImageUrl from "../images/buchetreview.jpg";
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [index, setIndex] = useState(0); // Indexul pentru navigație
 
   useEffect(() => {
-    fetch("http://localhost:8060/user/getReviews", {
+    fetch("http://localhost:8060/public/getReviews", {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
       .then((response) => response.json())

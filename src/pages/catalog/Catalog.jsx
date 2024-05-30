@@ -31,27 +31,27 @@ const Catalog = () => {
   }, []);
 
   const handleDeleteProduct = async (productId) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
+    if (window.confirm("Are you sure you want to hide this product?")) {
       const token = localStorage.getItem("token");
       try {
         const response = await fetch(
-          `http://localhost:8060/admin/delete/${productId}`,
+          `http://localhost:8060/admin/hiden/${productId}`,
           {
-            method: "DELETE",
+            method: "PUT",
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
         if (!response.ok) {
-          throw new Error("Failed to delete the product");
+          throw new Error("Failed to hide the product");
         }
         setProducts(products.filter((product) => product.id !== productId));
 
-        alert("Product deleted successfully");
+        alert("Product hiden successfully");
       } catch (error) {
-        console.error("Error deleting product:", error);
-        alert("Failed to delete the product");
+        console.error("Error hiding product:", error);
+        alert("Failed to hide the product");
       }
     }
   };

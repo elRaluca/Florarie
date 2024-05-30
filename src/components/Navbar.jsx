@@ -34,6 +34,12 @@ const Navbar = () => {
       if (link.name === "Add Product" && !isAdmin()) {
         return false;
       }
+      if (link.name === "Supplier" && !isAdmin()) {
+        return false;
+      }
+      if (link.name === "IncomeMY" && !isAdmin()) {
+        return false;
+      }
       if (link.name === "Orders" && !isAdmin()) {
         return false;
       }
