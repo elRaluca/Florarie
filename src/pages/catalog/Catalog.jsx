@@ -15,7 +15,9 @@ const Catalog = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:8060/public/product");
+        const response = await fetch(
+          "${process.env.REACT_APP_BACKEND_URL}/public/product"
+        );
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
