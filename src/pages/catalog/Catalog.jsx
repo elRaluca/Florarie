@@ -16,7 +16,7 @@ const Catalog = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "${process.env.REACT_APP_BACKEND_URL}/public/product"
+          `${process.env.REACT_APP_BACKEND_URL}/public/product`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
