@@ -1,13 +1,9 @@
-// LogIn.js
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../images/logo.png";
 import Footer from "../../components/Footer";
 import "../singup/singup.css";
 import "./login.css";
-import { Users } from "../../data.js";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const LogIn = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +15,6 @@ const LogIn = () => {
 
   const [emailNotFoundError, setEmailNotFoundError] = useState(false);
   const [incorrectPasswordError, setIncorrectPasswordError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,35 +28,38 @@ const LogIn = () => {
 
     try {
       console.log("Submitting form", formData);
-      const response = await axios.post(
-        "http://localhost:8060/public/singin",
-        formData
-      );
+      const response = await fetch("http://localhost:8060/public/singin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-      console.log("Response data:", response.data);
+      if (response.ok) {
+        const data = await response.json();
+        const { token, email, role } = data;
 
-      const { token, email, role } = response.data;
-      // Stochează tokenul de autentificare în mod securizat, de exemplu în localStorage
-      localStorage.setItem("token", token);
-      localStorage.setItem("userEmail", email);
-      if (role) {
-        // Verifică dacă rolul există înainte de a încerca să-l salvezi
-        localStorage.setItem("userRole", role);
-      } else {
-        console.error("Role is missing from the response");
-      }
-      console.log("Saved role:", localStorage.getItem("userRole"));
-      console.log("Successfully logged in!", response.data);
-      // Redirecționează utilizatorul către pagina de home după autentificare
-      navigate("/home");
-    } catch (error) {
-      console.error("Login Error:", error.response || error);
-      // Gestionează erorile specifice bazate pe codul de stare al răspunsului
-      if (error.response && error.response.status === 404) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("userEmail", email);
+        if (role) {
+          localStorage.setItem("userRole", role);
+        } else {
+          console.error("Role is missing from the response");
+        }
+        console.log("Saved role:", localStorage.getItem("userRole"));
+        console.log("Successfully logged in!", data);
+
+        navigate("/home");
+      } else if (response.status === 404) {
         setEmailNotFoundError(true);
-      } else if (error.response && error.response.status === 401) {
+      } else if (response.status === 401) {
         setIncorrectPasswordError(true);
+      } else {
+        throw new Error("Unexpected response status: " + response.status);
       }
+    } catch (error) {
+      console.error("Login Error:", error.message);
     }
   };
 
@@ -102,7 +100,7 @@ const LogIn = () => {
                   onChange={handleChange}
                 />
                 {emailNotFoundError && (
-                  <p className="error_message">Account not found.</p>
+                  <p className="error_message_logIn">Account not found.</p>
                 )}
               </label>
               <br />
@@ -119,7 +117,7 @@ const LogIn = () => {
                   style={{ borderColor: incorrectPasswordError ? "red" : "" }}
                 />
                 {incorrectPasswordError && (
-                  <p className="error_message">Incorrect password.</p>
+                  <p className="error_message_logIn">Incorrect password.</p>
                 )}
               </label>
 

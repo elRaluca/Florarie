@@ -1,4 +1,5 @@
 import "./navbar.css";
+import React from "react";
 import Logo from "../images/logo.png";
 import { Link, NavLink } from "react-router-dom";
 import { GoListUnordered } from "react-icons/go";
@@ -106,9 +107,12 @@ const Navbar = () => {
         >
           {isNavShowing ? <MdOutlineClose /> : <GoListUnordered />}
         </button>
-        <Link to="/shoppingcart" className="shopping_cart_link">
-          <FaShoppingBasket className="shopping_cart" />
-        </Link>
+        {!isAdmin() && (
+          <Link to="/shoppingcart" className="shopping_cart_link">
+            <FaShoppingBasket className="shopping_cart" />
+            <link />
+          </Link>
+        )}
       </div>
     </nav>
   );

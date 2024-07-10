@@ -11,7 +11,7 @@ const Contact = () => {
   const [message, setMessage] = useState("");
   const [rating, setRating] = useState(1);
   const [feedbackName, setFeedbackName] = useState("");
-  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [feedbackMessageRev, setFeedbackMessageRev] = useState("");
   const userId = getUserIdFromToken();
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ const Contact = () => {
     } else if (name === "message") {
       setMessage(value);
       const maxLength = 500;
-      setFeedbackMessage(`${maxLength - value.length} characters left`);
+      setFeedbackMessageRev(`${maxLength - value.length} Characters left`);
     }
   };
 
@@ -33,7 +33,7 @@ const Contact = () => {
     if (!userId) {
       console.error("User ID is not available. User might not be logged in.");
       navigate("/login");
-      return; // Oprire executare funcție dacă utilizatorul nu este autentificat
+      return;
     }
     const review = { name, message, rating };
 
@@ -48,12 +48,11 @@ const Contact = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Review added:", data);
-        // You might want to clear the form or provide feedback to the user here
         setName("");
         setMessage("");
         setRating(1);
         setFeedbackName("");
-        setFeedbackMessage("");
+        setFeedbackMessageRev("");
       })
       .catch((error) => console.error("Error:", error));
   }
@@ -122,7 +121,7 @@ const Contact = () => {
               required
               placeholder="Your Message"
             ></textarea>
-            <div className="feedbackMessage">{feedbackMessage}</div>
+            <div className="feedbackMessageRev">{feedbackMessageRev}</div>
           </div>
           <div className="ratingReview">
             <label htmlFor="rating">Rating:</label>

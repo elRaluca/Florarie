@@ -103,10 +103,8 @@ const IncomeMY = () => {
                 <YAxis
                   stroke="#000000"
                   className="yaxis"
-                  domain={[0, 50000]}
-                  ticks={[
-                    0, 2500, 5000, 7500, 10000, 15000, 20000, 25000, 50000,
-                  ]}
+                  domain={[0, 5000]}
+                  ticks={[0, 250, 500, 750, 1000, 1500, 2000, 2500, 5000]}
                 />
 
                 <Bar dataKey="Total" fill="#8884d8" />

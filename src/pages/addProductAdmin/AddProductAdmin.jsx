@@ -28,7 +28,7 @@ const AddProductAdmin = () => {
       }
     }
     if (name === "name") {
-      const maxLength = 13;
+      const maxLength = 20;
       const currentLength = value.length;
       if (currentLength <= maxLength) {
         setFeedbackNameAdd(`${maxLength - currentLength} characters left`);
@@ -45,7 +45,7 @@ const AddProductAdmin = () => {
         img.onload = () => {
           if (img.width === 452 && img.height === 552) {
             setProduct((prev) => ({ ...prev, image: file }));
-            setFeedbackImgAdd(""); // Reset feedback if image is correct
+            setFeedbackImgAdd("");
           } else {
             setProduct((prev) => ({ ...prev, image: null }));
             setFeedbackImgAdd("Image must be 452x552 pixels");
@@ -110,7 +110,7 @@ const AddProductAdmin = () => {
           <label className="nameProduct">
             <input
               placeholder="Name"
-              maxLength="13"
+              maxLength="20"
               type="text"
               name="name"
               value={product.name}

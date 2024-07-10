@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../images/logo.png";
 import { Users } from "../../data.js";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
@@ -131,21 +130,31 @@ const SingUp = () => {
     ) {
       // Logica pentru trimiterea datelor către server folosind Axios
       try {
-        const response = await axios.post("//localhost:8060/public/singup", {
-          name: formData.nameClient,
-          email: formData.email,
-          password: formData.password,
+        const response = await fetch("//localhost:8060/public/singup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.nameClient,
+            email: formData.email,
+            password: formData.password,
+          }),
         });
-        const { token, email, role } = response.data;
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const responseData = await response.json();
+
+        const { token, email, role } = responseData;
         localStorage.setItem("token", token); // Salvează tokenul în localStorage
         localStorage.setItem("userEmail", email);
         localStorage.setItem("userRole", role);
         setFormData({ ...formData, redirectToVerifyOtp: true });
       } catch (error) {
-        console.error(
-          "There was an error!",
-          error.response ? error.response.data : error
-        );
+        console.error("There was an error!", error);
       }
     }
   };
@@ -175,8 +184,8 @@ const SingUp = () => {
             <Link to="/aboutus" className="btn lg">
               About us
             </Link>
-            <Link to="/specialbouquete" className="btn lg">
-              Special Bouquete
+            <Link to="/specialbouquet" className="btn lg">
+              Special Bouquet
             </Link>
             <Link to="/catalog" className="btn lg">
               Catalog
@@ -187,14 +196,6 @@ const SingUp = () => {
         <div className="singup_right_content">
           <div className="singup_right">
             <h2>Create Account</h2>
-
-            <div className="singup_with">
-              <button onClick={handleGoogleSignUp}>Sign Up with Google</button>
-              <button onClick={handleFacebookSignUp}>
-                Sign Up with Facebook
-              </button>
-            </div>
-            <h3>OR</h3>
 
             <form className="singUp_Form" onSubmit={handleSubmit}>
               <label className="singUp_label">
@@ -229,11 +230,13 @@ const SingUp = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  style={{ borderColor: passwordError.isError ? "red" : "" }}
+                  style={{
+                    borderColor: passwordError.isError ? "red" : "",
+                  }}
                 />
               </label>
               {passwordError.isError && (
-                <p className="error_message">{passwordError.message}</p>
+                <p className="error_message_log">{passwordError.message}</p>
               )}
               <br />
               <label className="singUp_label">
@@ -254,7 +257,9 @@ const SingUp = () => {
                 />
               </label>
               {confirmPasswordError.isError && (
-                <p className="error_message">{confirmPasswordError.message}</p>
+                <p className="error_message_log">
+                  {confirmPasswordError.message}
+                </p>
               )}
               <br />
 

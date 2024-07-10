@@ -29,7 +29,11 @@ const TopSellingProducts = () => {
             />
 
             <h4>{product.name}</h4>
-            <small>{product.description}</small>
+            <small>
+              Our best-selling bouquet combines elegance and charm, perfectly
+              suited to grace any occasion with its delightful blend of colors
+              and scents.
+            </small>
             <p>{product.price} $</p>
           </Card>
         ))}

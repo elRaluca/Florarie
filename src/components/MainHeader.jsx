@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Image from "../images/blossomF.png";
+import React from "react";
 
 const MainHeader = () => {
   return (
@@ -15,7 +16,7 @@ const MainHeader = () => {
           <p>No matter what kind of quote you're looking for,</p>
           <p>browsing through this list will definitely</p>
           <p>make you want to stop and smell the roses!</p>
-          <Link to="/catalog" className="btn lg">
+          <Link to="/aboutus" className="btn lg">
             Read More
           </Link>
         </div>

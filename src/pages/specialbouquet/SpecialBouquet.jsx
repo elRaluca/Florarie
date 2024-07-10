@@ -21,6 +21,11 @@ const SpecialBouquet = ({ cart, setCart }) => {
               Watch our tutorial
               <br /> video now.
             </h2>
+            <p>!</p>
+            <p>
+              The positioning of the flower is
+              <br /> done according to its center
+            </p>
             <video controls>
               <source src={videoBuchet} type="video/mp4" />
               Browserul tău nu suportă elementul video.

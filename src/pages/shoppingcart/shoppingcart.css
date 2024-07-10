@@ -202,13 +202,13 @@
   transition: background-color 0.3s;
   color: var(--color-gray-700);
 }
-
-.payment-option:hover,
+.payment-option {
+  background-color: var(--color-gray-300);
+}
 .delivery_option:hover {
   background-color: var(--color-gray-300);
 }
 
-.payment-option.active,
 .delivery_option.active {
   background-color: var(--color-gray-300);
   color: var(--color-gray-700);

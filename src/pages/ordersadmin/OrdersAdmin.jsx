@@ -36,6 +36,7 @@ function OrderItem({ order, onUpdateStatus, onUpdateDeliveryStatus }) {
                 <div>
                   <div>
                     <p>Product ID: {item.productId}</p>
+                    <p>Product Quantity: {item.quantity}</p>
                     <img
                       src={
                         item.productImage &&
@@ -73,6 +74,7 @@ function OrderItem({ order, onUpdateStatus, onUpdateDeliveryStatus }) {
               {item.specialBouquetId && (
                 <div>
                   <p>Special Bouquet ID: {item.specialBouquetId}</p>
+                  <p>Product Quantity: {item.quantity}</p>
                   <input
                     type="checkbox"
                     id={`img-expand-${item.specialBouquetId}`}

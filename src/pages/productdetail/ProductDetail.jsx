@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./productdetail.css";
+import React from "react";
 import { getUserIdFromToken } from "./getUserIdFromToken";
 import { useNavigate } from "react-router-dom";
 
@@ -10,6 +11,7 @@ const ProductDetail = ({ cart, setCart }) => {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const userId = getUserIdFromToken();
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -74,6 +76,8 @@ const ProductDetail = ({ cart, setCart }) => {
           ...prevCart,
           { ...product, quantity: quantity },
         ]); // Update the cart state
+        setSuccessMessage("Product added to cart successfully"); // Setează mesajul de succes
+        setTimeout(() => setSuccessMessage(""), 3000);
       } catch (error) {
         console.error("Error adding product to cart:", error.message);
       }
@@ -117,6 +121,9 @@ const ProductDetail = ({ cart, setCart }) => {
             <button className="buy_now_btn" onClick={addToCart}>
               Buy now
             </button>
+            {successMessage && (
+              <div className="success-message">{successMessage}</div>
+            )}
           </div>
         </div>
         <div className="productdetail_right">

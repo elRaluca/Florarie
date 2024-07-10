@@ -253,6 +253,7 @@ const ShoppingCart = ({ cart, setCart }) => {
 
       console.log("Order placed successfully");
       clearCart();
+      navigate("/home");
     } catch (error) {
       console.error("Error placing order:", error);
       console.log("Sending order details:", JSON.stringify(orderDetails));

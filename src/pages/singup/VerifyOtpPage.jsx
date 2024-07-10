@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 
 function VerifyOtpPage() {
   const [otp, setOtp] = useState("");
@@ -9,13 +8,11 @@ function VerifyOtpPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Funcția pentru a obține adresa de e-mail din query-ul URL-ului
   const getEmailFromQuery = () => {
     return new URLSearchParams(location.search).get("email");
   };
 
   useEffect(() => {
-    // Inițializează logică bazată pe email-ul primit
     const email = getEmailFromQuery();
     console.log(`Email for OTP verification: ${email}`);
   }, [location]);
@@ -25,17 +22,41 @@ function VerifyOtpPage() {
     const email = getEmailFromQuery();
 
     try {
-      const response = await axios.post(
-        "http://localhost:8060/public/verify-otp",
-        {
+      const response = await fetch("http://localhost:8060/public/verify-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
           email,
           otp,
-        }
-      );
-      console.log(response.data); // Poți face ceva cu răspunsul primit, cum ar fi redirecționarea către pagina de logare
-      navigate("/login"); // Exemplu de redirecționare către pagina de logare după ce OTP-ul este verificat cu succes
+        }),
+      });
+
+      let data;
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json();
+      } else {
+        data = await response.text();
+      }
+
+      console.log("Response status:", response.status);
+      console.log("Response data:", data);
+
+      if (response.ok) {
+        console.log("OTP verified successfully:", data);
+        navigate("/login");
+      } else {
+        setError(
+          typeof data === "string"
+            ? data
+            : data.error || "The code is incorrect."
+        );
+      }
     } catch (error) {
-      setError("The code is incorrect.");
+      console.error("Error during OTP verification:", error);
+      setError("An error occurred while verifying the code. Please try again.");
     }
   };
 
@@ -43,15 +64,39 @@ function VerifyOtpPage() {
     const email = getEmailFromQuery();
 
     try {
-      const response = await axios.post(
-        "http://localhost:8060/public/resend-otp",
-        {
-          email,
-        }
-      );
-      setResponseMessage(response.data.message);
+      const response = await fetch("http://localhost:8060/public/resend-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      let data;
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json();
+      } else {
+        data = await response.text();
+      }
+
+      console.log("Response status:", response.status);
+      console.log("Response data:", data);
+
+      if (response.ok) {
+        setResponseMessage(typeof data === "string" ? data : data.message);
+      } else {
+        setResponseMessage(
+          typeof data === "string"
+            ? data
+            : data.error || "Failed to resend OTP. Please try again."
+        );
+      }
     } catch (error) {
-      setResponseMessage(error.response.data.error);
+      console.error("Error during OTP resend:", error);
+      setResponseMessage(
+        "An error occurred while resending the OTP. Please try again."
+      );
     }
   };
 
@@ -74,7 +119,11 @@ function VerifyOtpPage() {
           Verifică
         </button>
         <div>
-          <button className="RetrimiteCod " onClick={handleResendOtp}>
+          <button
+            className="RetrimiteCod"
+            type="button"
+            onClick={handleResendOtp}
+          >
             Retrimite
           </button>
           {responseMessage && <p>{responseMessage}</p>}

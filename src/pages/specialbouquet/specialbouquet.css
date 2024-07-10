@@ -355,7 +355,7 @@
   position: absolute;
   margin-top: -7.5rem;
   margin-left: -6rem;
-  background-color: red;
+  background-color: pink;
 }
 .blackbutHartie2 {
   width: 1rem;
@@ -363,7 +363,7 @@
   position: absolute;
   margin-top: -6.6rem;
   margin-left: -6rem;
-  background-color: black;
+  background-color: red;
 }
 
 .WrappingP {
@@ -462,16 +462,6 @@
   height: 20rem;
   z-index: -1;
 }
-.boardFlower {
-  justify-content: space-between;
-  align-items: flex-start;
-  position: relative;
-  padding: 1rem;
-  width: 11.5rem;
-  height: 7rem;
-  top: -19rem;
-  left: 2.8rem;
-}
 
 .flowerSize {
   display: grid;
@@ -485,9 +475,8 @@
 }
 
 .flowerSize img {
-  width: 50px;
-  height: 50px;
-  margin: -8px;
+  width: 60px;
+  height: 60px;
 }
 
 .PriceSpecial {
@@ -548,7 +537,20 @@
   margin-top: 1rem;
   font-weight: 300;
 }
-
+.videoContainer p {
+  color: red;
+  position: absolute;
+  margin-top: -5rem;
+  margin-left: 25rem;
+  font-size: 30px;
+  line-height: 30px;
+}
+.videoContainer > p:first-of-type {
+  color: red;
+  font-size: 5rem;
+  margin-left: 22rem;
+  margin-top: -4rem;
+}
 .videoContainer video {
   margin-left: 15rem;
   margin-top: -1rem;
@@ -574,4 +576,17 @@
 .arrowBouquet {
   margin-left: 2.9rem;
   bottom: 0.9rem;
+}
+
+.boardFlower {
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2rem;
+  width: 11.5rem;
+  height: 7rem;
+  top: -17rem;
+  left: 4.4rem;
+  position: relative;
+
+  overflow: visible;
 }

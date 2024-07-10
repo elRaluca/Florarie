@@ -64,7 +64,7 @@ function ProductForm() {
       const currentLength = value.length;
       setFeedbackDesc(`${maxLength - currentLength} characters left`);
     } else if (name === "name") {
-      const maxLength = 13;
+      const maxLength = 20;
       const currentLength = value.length;
       setFeedbackName(`${maxLength - currentLength} characters left`);
     }
@@ -150,7 +150,7 @@ function ProductForm() {
           <label>
             Name:
             <input
-              maxLength="13"
+              maxLength="20"
               className="nameInput"
               type="text"
               name="name"

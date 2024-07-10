@@ -1,6 +1,7 @@
 import SectionHead from "./SectionHead";
 import { Link } from "react-router-dom";
 import Image from "../images/delivery.png";
+import React from "react";
 
 const Delivery = () => {
   return (

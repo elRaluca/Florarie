@@ -28,8 +28,12 @@ const RightSide = ({ cart, setCart }) => {
 
   const [, dropFlower1] = useDrop(() => ({
     accept: "image",
-    drop: (item) => {
-      addImageToBoard(item);
+    drop: (item, monitor) => {
+      const dropPosition = monitor.getClientOffset();
+      console.log(
+        `Drop position (mouse): x=${dropPosition.x}, y=${dropPosition.y}`
+      );
+      addImageToBoard(item, dropPosition);
     },
   }));
 
@@ -38,8 +42,22 @@ const RightSide = ({ cart, setCart }) => {
     setPrice((prevPrice) => PriceDrop({ prevPrice }));
   };
 
-  const addImageToBoard = (item) => {
-    setFlower((prevFlowers) => [...prevFlowers, item]);
+  const addImageToBoard = (item, dropPosition) => {
+    const boardRect = boardRef.current.getBoundingClientRect();
+    const imageWidth = 200; // Lățimea imaginii florii
+    const imageHeight = 150; // Înălțimea imaginii florii
+    const x = dropPosition.x - boardRect.left - imageWidth / 2;
+    const y = dropPosition.y - boardRect.top - imageHeight / 2;
+
+    console.log("dropPosition.x", dropPosition.x);
+    console.log("boardRect.left", boardRect.left);
+    console.log("dropPosition.y", dropPosition.y);
+    console.log("boardRect.top", boardRect.top);
+
+    console.log(`Board position: x=${boardRect.left}, y=${boardRect.top}`);
+    console.log(`Calculated drop position: x=${x}, y=${y}`);
+
+    setFlower((prevFlowers) => [...prevFlowers, { ...item, x, y }]);
     setPrice((prevPriceImage) => PriceDropImage({ prevPriceImage }));
   };
 
@@ -133,7 +151,12 @@ const RightSide = ({ cart, setCart }) => {
         <div ref={dropFlower1} className="boardFlower">
           <div className="flowerSize">
             {flower.map((item, index) => (
-              <img key={index} src={item.src} alt={item.alt} />
+              <img
+                key={index}
+                src={item.src}
+                alt={item.alt}
+                style={{ position: "absolute", left: item.x, top: item.y }}
+              />
             ))}
           </div>
         </div>
@@ -144,4 +167,5 @@ const RightSide = ({ cart, setCart }) => {
     </section>
   );
 };
+
 export default RightSide;

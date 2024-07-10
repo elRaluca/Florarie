@@ -86,14 +86,14 @@
 }
 
 .img-checkbox {
-  display: none; /* Ascunde checkbox-ul */
+  display: none;
 }
 
 .img-checkbox:checked + .img-label img {
-  transform: scale(6) translate(-20%, -10%); /* Mărește imaginea și o translatează pentru centrare */
-  max-width: none; /* Elimină limita de lățime la mărire */
-  position: fixed; /* Poziționare fixă pentru a rămâne în centrul viewport-ului */
-  top: 50%; /* Centrare verticală */
-  left: 50%; /* Centrare orizontală */
-  z-index: 1000; /* Asigură că este deasupra altor elemente */
+  transform: scale(6) translate(-20%, -10%);
+  max-width: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1000;
 }

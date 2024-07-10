@@ -174,10 +174,10 @@ span {
 }
 
 .singUp_input.error {
-  border: 1px solid red;
+  border: 1px solid blue;
 }
-.error_message {
-  color: --color-gray-700;
+.error_message_log {
+  color: var(--color-gray-700);
   margin-top: 20px;
   font-size: 12px;
 }
@@ -229,7 +229,7 @@ span {
 
 .ErrorMessage {
   font-size: 1.5rem;
-  color: red;
+  color: aqua;
   margin-top: 1rem;
   margin-left: 16rem;
 }

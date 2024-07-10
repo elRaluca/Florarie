@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaTwitter, FaFacebookF } from "react-icons/fa";
 import Logo from "../images/logo.png";
+import React from "react";
 // Asigură-te că adaugi fișierul CSS corespunzător
 
 const Footer = () => {
